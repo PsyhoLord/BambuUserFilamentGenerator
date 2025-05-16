@@ -1,0 +1,122 @@
+﻿<views:MvxWpfView
+    x:TypeArguments="viewModels:FileGeneratorViewModel" x:Class="BambuConfigGenerator.Views.FileGeneratorView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BambuConfigGenerator.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
+    xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel }"
+    mc:Ignorable="d">
+    <Grid Background="AliceBlue">
+        <TextBox
+            Width="120"
+            Margin="145,29,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Text="3DPlast"
+            TextWrapping="Wrap" />
+        <TextBox
+            Width="120"
+            Margin="145,55,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Text="PLA"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="10,25,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Brand:" />
+        <Label
+            Margin="10,51,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Type:"
+            RenderTransformOrigin="0.642,0.156" />
+        <Label
+            Margin="10,77,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Temperatures:"
+            RenderTransformOrigin="0.474,0.271" />
+        <TextBox
+            Width="50"
+            Margin="145,81,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Text="190"
+            TextWrapping="Wrap" />
+        <TextBox
+            Width="50"
+            Margin="215,81,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Text="220"
+            TextWrapping="Wrap" />
+        <Button
+            Width="120"
+            Margin="405,132,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Select file" />
+        <Label
+            Margin="10,103,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Filament Flow Ratio:" />
+        <TextBox
+            Width="120"
+            Margin="145,107,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            Text="0.96"
+            TextWrapping="Wrap" />
+        <TextBox
+            Width="255"
+            Margin="145,133,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="TextBox"
+            TextWrapping="Wrap" />
+        <Label
+            Margin="10,129,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Template Path:" />
+        <Label
+            Margin="10,155,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Output Folder:" />
+        <TextBox
+            Width="255"
+            Margin="145,159,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Text="TextBox"
+            TextWrapping="Wrap" />
+        <Button
+            Width="120"
+            Margin="405,158,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Select Folder" />
+
+        <Button
+            Width="98"
+            Height="32"
+            Margin="427,193,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Content="Generate!" />
+    </Grid>
+</views:MvxWpfView>
