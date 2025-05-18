@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Services;
+using Microsoft.Extensions.Logging;
+using MvvmCross;
+using MvvmCross.IoC;
 using MvvmCross.Platforms.Wpf.Core;
 using MvvmCross.Plugin;
 
@@ -20,6 +24,13 @@ namespace BambuConfigGenerator
 
         //    return new SerilogLoggerFactory();
         //}
+
+        protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
+        {
+            Mvx.IoCProvider?.RegisterSingleton<IFileFolderPickerService>(new FileFolderPickerService());
+
+            base.InitializeLastChance(iocProvider);
+        }
 
         protected override ILoggerFactory? CreateLogFactory() => default!;
 

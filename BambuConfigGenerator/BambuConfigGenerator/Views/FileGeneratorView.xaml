@@ -1,5 +1,5 @@
 ﻿<views:MvxWpfView
-    x:TypeArguments="viewModels:FileGeneratorViewModel" x:Class="BambuConfigGenerator.Views.FileGeneratorView"
+    x:Class="BambuConfigGenerator.Views.FileGeneratorView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,116 +7,265 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-    Width="800"
-    Height="450"
-    d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel }"
+    Width="1000"
+    Height="800"
+    d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel}"
+    x:TypeArguments="viewModels:FileGeneratorViewModel"
     mc:Ignorable="d">
+    <views:MvxWpfView.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="20,5,0,5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="#FFFAFAFA" />
+            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,5,0,5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Background" Value="#FFFAFAFA" />
+            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="20,5,0,5" />
+            <Setter Property="Background" Value="#FFFAFAFA" />
+            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </views:MvxWpfView.Resources>
+
     <Grid Background="AliceBlue">
-        <TextBox
-            Width="120"
-            Margin="145,29,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Text="3DPlast"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="120"
-            Margin="145,55,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Text="PLA"
-            TextWrapping="Wrap" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Brand  -->
         <Label
-            Margin="10,25,0,0"
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             Content="Brand:" />
+        <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            Width="120"
+            HorizontalAlignment="Left"
+            HorizontalContentAlignment="Center"
+            Text="{Binding FilamentBrand}"
+            TextWrapping="Wrap" />
+
+        <!--  Type  -->
         <Label
-            Margin="10,51,0,0"
+            Grid.Row="1"
+            Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Type:"
             RenderTransformOrigin="0.642,0.156" />
+        <ComboBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="120"
+            Margin="10"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Center"
+            DisplayMemberPath="Name"
+            ItemsSource="{Binding FilamentTypes}"
+            SelectedItem="{Binding SelectedFilamentType}" />
+
+        <!--  Serial  -->
         <Label
-            Margin="10,77,0,0"
+            Grid.Row="2"
+            Grid.Column="0"
+            Margin="10,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Content="Serial:" />
+        <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            Text="{Binding Serial}"
+            TextWrapping="Wrap" />
+
+        <!--  Recommended Temperature  -->
+        <Label
+            Grid.Row="3"
+            Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Temperatures:"
             RenderTransformOrigin="0.474,0.271" />
-        <TextBox
-            Width="50"
-            Margin="145,81,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Text="190"
-            TextWrapping="Wrap" />
-        <TextBox
-            Width="50"
-            Margin="215,81,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Text="220"
-            TextWrapping="Wrap" />
-        <Button
-            Width="120"
-            Margin="405,132,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Select file" />
+        <StackPanel
+            Grid.Row="3"
+            Grid.Column="1"
+            Orientation="Horizontal">
+            <TextBox
+                Width="50"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                Text="{Binding RecommendedTemperatureMin}"
+                TextWrapping="Wrap" />
+            <TextBox
+                Width="50"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                Text="{Binding RecommendedTemperatureMax}"
+                TextWrapping="Wrap" />
+        </StackPanel>
+
+        <!--  Flow  -->
         <Label
-            Margin="10,103,0,0"
+            Grid.Row="4"
+            Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Filament Flow Ratio:" />
         <TextBox
+            Grid.Row="4"
+            Grid.Column="1"
             Width="120"
-            Margin="145,107,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             HorizontalContentAlignment="Center"
-            Text="0.96"
+            Text="{Binding FilamentFlowRatio}"
             TextWrapping="Wrap" />
-        <TextBox
-            Width="255"
-            Margin="145,133,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Text="TextBox"
-            TextWrapping="Wrap" />
+
+        <!--  Template  -->
         <Label
-            Margin="10,129,0,0"
+            Grid.Row="5"
+            Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Template Path:" />
+        <TextBox
+            Grid.Row="5"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Text="{Binding FolderWithTemplatesPath}"
+            TextWrapping="Wrap" />
+        <Button
+            Grid.Row="5"
+            Grid.Column="2"
+            Width="120"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Command="{Binding SelectFolderWithTemplates}"
+            Content="Select file" />
+
+        <!--  OUTPUT  -->
         <Label
-            Margin="10,155,0,0"
+            Grid.Row="6"
+            Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Content="Output Folder:" />
         <TextBox
-            Width="255"
-            Margin="145,159,0,0"
-            HorizontalAlignment="Left"
+            Grid.Row="6"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Text="TextBox"
+            Text="{Binding SelectedFolder}"
             TextWrapping="Wrap" />
         <Button
+            Grid.Row="6"
+            Grid.Column="2"
             Width="120"
-            Margin="405,158,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
+            Command="{Binding SelectFolderCommand}"
             Content="Select Folder" />
 
+        <!--  Printer & nozzle  -->
+        <Grid
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Margin="10,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Vertical">
+                <Label Content="Select printers:" />
+                <ListView
+                    Width="200"
+                    Margin="20,0"
+                    HorizontalAlignment="Left"
+                    ItemsSource="{Binding Printers}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox
+                                    Margin="5"
+                                    Content="{Binding Name}"
+                                    IsChecked="{Binding IsSelected}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <Label Content="Select nozzles:" />
+                <ListView
+                    Width="200"
+                    Margin="20,0"
+                    ItemsSource="{Binding Nozzles}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox
+                                    Margin="5"
+                                    Content="{Binding Name}"
+                                    IsChecked="{Binding IsSelected}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Grid>
+
+        <!--  GENERATE!  -->
         <Button
-            Width="98"
-            Height="32"
-            Margin="427,193,0,0"
-            HorizontalAlignment="Left"
+            Grid.Row="8"
+            Grid.Column="2"
+            Width="200"
+            Height="42"
+            Margin="10,10,20,0"
+            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Command="{Binding GenerateCommand}"
             Content="Generate!" />
     </Grid>
 </views:MvxWpfView>

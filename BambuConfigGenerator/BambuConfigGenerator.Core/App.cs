@@ -1,4 +1,6 @@
-﻿using BambuConfigGenerator.Core.ViewModels;
+﻿using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Core.ViewModels;
+using MvvmCross;
 using MvvmCross.ViewModels;
 using MvvmCross.IoC;
 
@@ -18,6 +20,8 @@ public class App : MvxApplication
             .RegisterAsLazySingleton();
 
         // Mvx.IoCProvider?.RegisterSingleton<IMvxTextProvider>(new TextProviderBuilder().TextProvider);
+        Mvx.IoCProvider?.RegisterSingleton<IIOService>(new IOService());
+        Mvx.IoCProvider?.RegisterSingleton<ITemplateFolderAnalyserService>(new TemplateFolderAnalyserService());
 
         RegisterAppStart<FileGeneratorViewModel>();
     }

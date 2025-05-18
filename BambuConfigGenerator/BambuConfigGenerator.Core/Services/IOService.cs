@@ -4,29 +4,22 @@ using BambuConfigGenerator.Models;
 
 namespace BambuConfigGenerator.Core.Services
 {
-    internal interface IOService
+    internal class IOService : IIOService
     {
         public FilamentModel GetDefaultFilamentModel(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
-                throw new ArgumentException("File path cannot be null or empty.", nameof(filePath));
+                throw new ArgumentException("Path cannot be null or empty.", nameof(filePath));
             }
 
             if (!File.Exists(filePath))
             {
-                throw new FileNotFoundException("The specified file was not found.", filePath);
+                throw new FileNotFoundException("The specified file does not exist.", filePath);
             }
 
-            try
-            {
-                string fileContent = File.ReadAllText(filePath);
-                return JsonSerializer.Deserialize<FilamentModel>(fileContent) ?? throw new InvalidOperationException("Deserialization returned null.");
-            }
-            catch (JsonException ex)
-            {
-                throw new InvalidOperationException("Failed to deserialize the file content into a FilamentModel.", ex);
-            }
+            var fileContent = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<FilamentModel>(fileContent) ?? throw new InvalidOperationException("Failed to deserialize the file content.");
         }
     }
 }

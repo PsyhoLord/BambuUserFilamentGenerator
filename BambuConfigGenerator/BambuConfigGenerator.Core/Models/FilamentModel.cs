@@ -5,20 +5,19 @@ namespace BambuConfigGenerator.Models
     internal class FilamentModel
     {
         [JsonProperty("activate_air_filtration")]
-        public List<long> ActivateAirFiltration { get; set; }
+        public List<string> ActivateAirFiltration { get; set; }
 
         [JsonProperty("additional_cooling_fan_speed")]
-        public List<long> AdditionalCoolingFanSpeed { get; set; }
+        public List<string> AdditionalCoolingFanSpeed { get; set; }
 
         [JsonProperty("chamber_temperatures")]
-        public List<long> ChamberTemperatures { get; set; }
+        public List<string> ChamberTemperatures { get; set; }
 
         [JsonProperty("circle_compensation_speed")]
-        public List<long> CircleCompensationSpeed { get; set; }
+        public List<string> CircleCompensationSpeed { get; set; }
 
         [JsonProperty("close_fan_the_first_x_layers")]
-
-        public List<long> CloseFanTheFirstXLayers { get; set; }
+        public List<string> CloseFanTheFirstXLayers { get; set; }
 
         [JsonProperty("compatible_printers")]
         public List<string> CompatiblePrinters { get; set; }
@@ -33,20 +32,16 @@ namespace BambuConfigGenerator.Models
         public string CompatiblePrintsCondition { get; set; }
 
         [JsonProperty("complete_print_exhaust_fan_speed")]
-
-        public List<long> CompletePrintExhaustFanSpeed { get; set; }
+        public List<string> CompletePrintExhaustFanSpeed { get; set; }
 
         [JsonProperty("cool_plate_temp")]
-
-        public List<long> CoolPlateTemp { get; set; }
+        public List<string> CoolPlateTemp { get; set; }
 
         [JsonProperty("cool_plate_temp_initial_layer")]
-
-        public List<long> CoolPlateTempInitialLayer { get; set; }
+        public List<string> CoolPlateTempInitialLayer { get; set; }
 
         [JsonProperty("counter_coef_1")]
-
-        public List<long> CounterCoef1 { get; set; }
+        public List<string> CounterCoef1 { get; set; }
 
         [JsonProperty("counter_coef_2")]
         public List<string> CounterCoef2 { get; set; }
@@ -64,52 +59,40 @@ namespace BambuConfigGenerator.Models
         public List<string> DefaultFilamentColour { get; set; }
 
         [JsonProperty("diameter_limit")]
-
-        public List<long> DiameterLimit { get; set; }
+        public List<string> DiameterLimit { get; set; }
 
         [JsonProperty("during_print_exhaust_fan_speed")]
-
-        public List<long> DuringPrintExhaustFanSpeed { get; set; }
+        public List<string> DuringPrintExhaustFanSpeed { get; set; }
 
         [JsonProperty("enable_overhang_bridge_fan")]
-
-        public List<long> EnableOverhangBridgeFan { get; set; }
+        public List<string> EnableOverhangBridgeFan { get; set; }
 
         [JsonProperty("enable_pressure_advance")]
-
-        public List<long> EnablePressureAdvance { get; set; }
+        public List<string> EnablePressureAdvance { get; set; }
 
         [JsonProperty("eng_plate_temp")]
-
-        public List<long> EngPlateTemp { get; set; }
+        public List<string> EngPlateTemp { get; set; }
 
         [JsonProperty("eng_plate_temp_initial_layer")]
-
-        public List<long> EngPlateTempInitialLayer { get; set; }
+        public List<string> EngPlateTempInitialLayer { get; set; }
 
         [JsonProperty("fan_cooling_layer_time")]
-
-        public List<long> FanCoolingLayerTime { get; set; }
+        public List<string> FanCoolingLayerTime { get; set; }
 
         [JsonProperty("fan_max_speed")]
-
-        public List<long> FanMaxSpeed { get; set; }
+        public List<string> FanMaxSpeed { get; set; }
 
         [JsonProperty("fan_min_speed")]
-
-        public List<long> FanMinSpeed { get; set; }
+        public List<string> FanMinSpeed { get; set; }
 
         [JsonProperty("filament_adhesiveness_category")]
-
-        public List<long> FilamentAdhesivenessCategory { get; set; }
+        public List<string> FilamentAdhesivenessCategory { get; set; }
 
         [JsonProperty("filament_change_length")]
-
-        public List<long> FilamentChangeLength { get; set; }
+        public List<string> FilamentChangeLength { get; set; }
 
         [JsonProperty("filament_cost")]
-
-        public List<long> FilamentCost { get; set; }
+        public List<string> FilamentCost { get; set; }
 
         [JsonProperty("filament_density")]
         public List<string> FilamentDensity { get; set; }
@@ -133,38 +116,31 @@ namespace BambuConfigGenerator.Models
         public string FilamentId { get; set; }
 
         [JsonProperty("filament_is_support")]
-
-        public List<long> FilamentIsSupport { get; set; }
+        public List<string> FilamentIsSupport { get; set; }
 
         [JsonProperty("filament_long_retractions_when_cut")]
         public List<string> FilamentLongRetractionsWhenCut { get; set; }
 
         [JsonProperty("filament_max_volumetric_speed")]
-
-        public List<long> FilamentMaxVolumetricSpeed { get; set; }
+        public List<string> FilamentMaxVolumetricSpeed { get; set; }
 
         [JsonProperty("filament_minimal_purge_on_wipe_tower")]
-
-        public List<long> FilamentMinimalPurgeOnWipeTower { get; set; }
+        public List<string> FilamentMinimalPurgeOnWipeTower { get; set; }
 
         [JsonProperty("filament_notes")]
         public string FilamentNotes { get; set; }
 
         [JsonProperty("filament_pre_cooling_temperature")]
-
-        public List<long> FilamentPreCoolingTemperature { get; set; }
+        public List<string> FilamentPreCoolingTemperature { get; set; }
 
         [JsonProperty("filament_prime_volume")]
-
-        public List<long> FilamentPrimeVolume { get; set; }
+        public List<string> FilamentPrimeVolume { get; set; }
 
         [JsonProperty("filament_ramming_travel_time")]
-
-        public List<long> FilamentRammingTravelTime { get; set; }
+        public List<string> FilamentRammingTravelTime { get; set; }
 
         [JsonProperty("filament_ramming_volumetric_speed")]
-
-        public List<long> FilamentRammingVolumetricSpeed { get; set; }
+        public List<string> FilamentRammingVolumetricSpeed { get; set; }
 
         [JsonProperty("filament_retract_before_wipe")]
         public List<string> FilamentRetractBeforeWipe { get; set; }
@@ -194,8 +170,7 @@ namespace BambuConfigGenerator.Models
         public List<string> FilamentScarfHeight { get; set; }
 
         [JsonProperty("filament_scarf_length")]
-
-        public List<long> FilamentScarfLength { get; set; }
+        public List<string> FilamentScarfLength { get; set; }
 
         [JsonProperty("filament_scarf_seam_type")]
         public List<string> FilamentScarfSeamType { get; set; }
@@ -207,8 +182,7 @@ namespace BambuConfigGenerator.Models
         public List<string> FilamentShrink { get; set; }
 
         [JsonProperty("filament_soluble")]
-
-        public List<long> FilamentSoluble { get; set; }
+        public List<string> FilamentSoluble { get; set; }
 
         [JsonProperty("filament_start_gcode")]
         public List<string> FilamentStartGcode { get; set; }
@@ -235,12 +209,10 @@ namespace BambuConfigGenerator.Models
         public string From { get; set; }
 
         [JsonProperty("full_fan_speed_layer")]
-
-        public List<long> FullFanSpeedLayer { get; set; }
+        public List<string> FullFanSpeedLayer { get; set; }
 
         [JsonProperty("hole_coef_1")]
-
-        public List<long> HoleCoef1 { get; set; }
+        public List<string> HoleCoef1 { get; set; }
 
         [JsonProperty("hole_coef_2")]
         public List<string> HoleCoef2 { get; set; }
@@ -255,16 +227,13 @@ namespace BambuConfigGenerator.Models
         public List<string> HoleLimitMin { get; set; }
 
         [JsonProperty("hot_plate_temp")]
-
-        public List<long> HotPlateTemp { get; set; }
+        public List<string> HotPlateTemp { get; set; }
 
         [JsonProperty("hot_plate_temp_initial_layer")]
-
-        public List<long> HotPlateTempInitialLayer { get; set; }
+        public List<string> HotPlateTempInitialLayer { get; set; }
 
         [JsonProperty("impact_strength_z")]
-
-        public List<long> ImpactStrengthZ { get; set; }
+        public List<string> ImpactStrengthZ { get; set; }
 
         [JsonProperty("inherits")]
         public string Inherits { get; set; }
@@ -273,24 +242,19 @@ namespace BambuConfigGenerator.Models
         public string Name { get; set; }
 
         [JsonProperty("nozzle_temperature")]
-
-        public List<long> NozzleTemperature { get; set; }
+        public List<string> NozzleTemperature { get; set; }
 
         [JsonProperty("nozzle_temperature_initial_layer")]
-
-        public List<long> NozzleTemperatureInitialLayer { get; set; }
+        public List<string> NozzleTemperatureInitialLayer { get; set; }
 
         [JsonProperty("nozzle_temperature_range_high")]
-
-        public List<long> NozzleTemperatureRangeHigh { get; set; }
+        public List<string> NozzleTemperatureRangeHigh { get; set; }
 
         [JsonProperty("nozzle_temperature_range_low")]
-
-        public List<long> NozzleTemperatureRangeLow { get; set; }
+        public List<string> NozzleTemperatureRangeLow { get; set; }
 
         [JsonProperty("overhang_fan_speed")]
-
-        public List<long> OverhangFanSpeed { get; set; }
+        public List<string> OverhangFanSpeed { get; set; }
 
         [JsonProperty("overhang_fan_threshold")]
         public List<string> OverhangFanThreshold { get; set; }
@@ -299,51 +263,40 @@ namespace BambuConfigGenerator.Models
         public List<string> OverhangThresholdParticipatingCooling { get; set; }
 
         [JsonProperty("pre_start_fan_time")]
-
-        public List<long> PreStartFanTime { get; set; }
+        public List<string> PreStartFanTime { get; set; }
 
         [JsonProperty("pressure_advance")]
         public List<string> PressureAdvance { get; set; }
 
         [JsonProperty("reduce_fan_stop_start_freq")]
-
-        public List<long> ReduceFanStopStartFreq { get; set; }
+        public List<string> ReduceFanStopStartFreq { get; set; }
 
         [JsonProperty("required_nozzle_HRC")]
-
-        public List<long> RequiredNozzleHrc { get; set; }
+        public List<string> RequiredNozzleHRC { get; set; }
 
         [JsonProperty("slow_down_for_layer_cooling")]
-
-        public List<long> SlowDownForLayerCooling { get; set; }
+        public List<string> SlowDownForLayerCooling { get; set; }
 
         [JsonProperty("slow_down_layer_time")]
-
-        public List<long> SlowDownLayerTime { get; set; }
+        public List<string> SlowDownLayerTime { get; set; }
 
         [JsonProperty("slow_down_min_speed")]
-
-        public List<long> SlowDownMinSpeed { get; set; }
+        public List<string> SlowDownMinSpeed { get; set; }
 
         [JsonProperty("supertack_plate_temp")]
-
-        public List<long> SupertackPlateTemp { get; set; }
+        public List<string> SupertackPlateTemp { get; set; }
 
         [JsonProperty("supertack_plate_temp_initial_layer")]
-
-        public List<long> SupertackPlateTempInitialLayer { get; set; }
+        public List<string> SupertackPlateTempInitialLayer { get; set; }
 
         [JsonProperty("temperature_vitrification")]
-
-        public List<long> TemperatureVitrification { get; set; }
+        public List<string> TemperatureVitrification { get; set; }
 
         [JsonProperty("textured_plate_temp")]
-
-        public List<long> TexturedPlateTemp { get; set; }
+        public List<string> TexturedPlateTemp { get; set; }
 
         [JsonProperty("textured_plate_temp_initial_layer")]
-
-        public List<long> TexturedPlateTempInitialLayer { get; set; }
+        public List<string> TexturedPlateTempInitialLayer { get; set; }
 
         [JsonProperty("version")]
         public string Version { get; set; }
