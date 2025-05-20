@@ -1,12 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
-using BambuConfigGenerator.Core.Models;
+﻿using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
 using BambuConfigGenerator.Core.Services;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross;
 using MvvmCross.Commands;
+using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace BambuConfigGenerator.Core.ViewModels;
 
@@ -15,6 +16,7 @@ public class FileGeneratorViewModel : MvxViewModel
     private readonly IFileFolderPickerService _fileFolderPickerService;
     private readonly IIOService _ioService;
     private readonly ITemplateFolderAnalyserService _templateFolderAnalyserService;
+    private readonly IMvxNavigationService _navigationService;
     private string _filamentBrand = "3DPlast";
     private FilamentTypeUIModel _selectedFilamentType;
     private double _filamentFlowRatio = 0.96;
@@ -28,11 +30,13 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
-        IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService)
+        IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
+        IMvxNavigationService  navigationService)
     {
         _fileFolderPickerService = fileFolderPickerService;
         _ioService = ioService;
         _templateFolderAnalyserService = templateFolderAnalyserService;
+        _navigationService = navigationService;
 
         SelectFolderWithTemplates = new MvxAsyncCommand(SelectFolderWithTemplatesPath);
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
@@ -148,8 +152,10 @@ public class FileGeneratorViewModel : MvxViewModel
         SelectedFolder = path;
     }
 
-    private void Generate()
+    private async void Generate()
     {
+        await _navigationService.Navigate<SettingsViewModel>();
+        return;
         var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
         var corrections = new CorrectionParametersModel

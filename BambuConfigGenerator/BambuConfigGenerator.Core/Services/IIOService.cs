@@ -1,5 +1,4 @@
 ﻿using BambuConfigGenerator.Core.Models;
-using BambuConfigGenerator.Models;
 
 namespace BambuConfigGenerator.Core.Services;
 

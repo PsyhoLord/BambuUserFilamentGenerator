@@ -28,7 +28,7 @@ namespace BambuConfigGenerator
         protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
         {
             Mvx.IoCProvider?.RegisterSingleton<IFileFolderPickerService>(new FileFolderPickerService());
-
+            // Corrected the registration to match the expected types
             base.InitializeLastChance(iocProvider);
         }
 

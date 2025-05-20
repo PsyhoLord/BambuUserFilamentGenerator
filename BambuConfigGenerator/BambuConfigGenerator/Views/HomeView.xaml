@@ -1,0 +1,111 @@
+﻿<views:MvxWpfView
+    x:Class="BambuConfigGenerator.Views.HomeView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BambuConfigGenerator.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+    xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
+    xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    d:DataContext="{d:DesignInstance viewModels:HomeViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="viewModels:HomeViewModel"
+    mc:Ignorable="d">
+    <views:MvxWpfView.Resources>
+        <BooleanToVisibilityConverter x:Key="Visibility" />
+    </views:MvxWpfView.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            Background="#2E2E2E"
+            BorderBrush="#424242">
+            <Button
+                Width="40"
+                Height="40"
+                Margin="0"
+                VerticalAlignment="Top"
+                Command="{Binding OpenMenuCommand}">
+                <svgc:SvgViewbox Source="/Resources/hamburger-button-svgrepo-com.svg" />
+            </Button>
+        </Border>
+
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding MenuItems[0].ViewModel}"
+            Visibility="{Binding MenuItems[0].IsVisible, Converter={StaticResource Visibility}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <local:FileGeneratorView />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding MenuItems[1].ViewModel}"
+            Visibility="{Binding MenuItems[1].IsVisible, Converter={StaticResource Visibility}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <local:FilamentEditorView />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding MenuItems[2].ViewModel}"
+            Visibility="{Binding MenuItems[2].IsVisible, Converter={StaticResource Visibility}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
+                    <local:SettingsView />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <Grid Grid.Column="1"
+              Width="200"
+              HorizontalAlignment="Left"
+              Background="{StaticResource BackgroundColorDarkBrush}"
+              Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView
+                Width="200"
+                Margin="0,0"
+                Padding="0,10"
+                HorizontalAlignment="Left"
+                BorderBrush="Transparent"
+                ItemsSource="{Binding MenuItems}"
+                SelectedIndex="{Binding SelectedMenuItemIndex}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Label
+                                Margin="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Content="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label
+                Grid.Row="1"
+                Content="{Binding AppVersion}"
+                FontSize="12"
+                Foreground="{StaticResource PrimaryBrush}" />
+        </Grid>
+
+    </Grid>
+</views:MvxWpfView>

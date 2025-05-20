@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using BambuConfigGenerator.Core.Models;
-using BambuConfigGenerator.Models;
 using Newtonsoft.Json;
 
 namespace BambuConfigGenerator.Core.Services
