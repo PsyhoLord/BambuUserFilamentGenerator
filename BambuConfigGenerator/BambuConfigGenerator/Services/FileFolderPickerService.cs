@@ -1,4 +1,4 @@
-﻿using BambuConfigGenerator.Core.Services;
+﻿using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using Microsoft.Win32;
 using System.Windows;
 

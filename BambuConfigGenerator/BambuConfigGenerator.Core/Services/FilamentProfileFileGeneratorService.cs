@@ -2,13 +2,13 @@
 using System.IO;
 using BambuConfigGenerator.Core.Enums;
 using BambuConfigGenerator.Core.Models;
-using BambuConfigGenerator.Models;
-using Newtonsoft.Json;
 
 namespace BambuConfigGenerator.Core.Services
 {
-    internal class FilamentProfileFileGeneratorService
+    internal class FilamentProfileFileGeneratorService : IFilamentProfileFileGeneratorService
     {
+        private readonly IIOService _ioService;
+
         public Dictionary<Nozzles, string> NozzleNames = new Dictionary<Nozzles, string>()
            {
                {Nozzles.Zero2, "0.2 nozzle" },
@@ -42,20 +42,16 @@ namespace BambuConfigGenerator.Core.Services
             //{FilamentTypes.PLA_CarbonFiber, "PLA Carbon Fiber"}
         };
 
-        // public FilamentModel FilamentModel { get; set; }
+        public FilamentProfileFileGeneratorService(IIOService ioService)
+        {
+            _ioService = ioService;
+        }
 
         public CorrectionParametersModel Corrections { get; set; }
-
-        public string FolderWithTemplatesPath { get; set; } 
 
         public string GetFilamentName(Printers printer, Nozzles nozzle)
         {
             return $"{Corrections.Brand} {Corrections.Type} @Bambu Lab {PrinterNames[printer]} {NozzleNames[nozzle]}";
-        }
-
-        public void SetFilamentTemplatePath(string path)
-        {
-            FolderWithTemplatesPath = path;
         }
 
         public void SetParametersForCorrections (CorrectionParametersModel corrections)
@@ -63,30 +59,14 @@ namespace BambuConfigGenerator.Core.Services
             Corrections = corrections;
         }
 
-        public FilamentModel GetFileContent(string path)
-        {
-            if (string.IsNullOrWhiteSpace(path))
-            {
-                throw new ArgumentException("Path cannot be null or empty.", nameof(path));
-            }
-
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException("The specified file does not exist.", path);
-            }
-
-            var fileContent = File.ReadAllText(path).Replace("\r\n", "\n"); ;
-            return JsonConvert.DeserializeObject<FilamentModel>(fileContent) ?? throw new InvalidOperationException("Failed to deserialize the file content.");
-        }
-
-        public bool GenerateOutputFiles(string outputPath)
+        public bool GenerateOutputFiles()
         {
             var filamentId = Guid.NewGuid().ToString();
             foreach (var printer in Corrections.SelectedPrinters)
             {
                 foreach (var nozzle in Corrections.SelectedNozzles)
                 {
-                    var template = GetFileContent($"{FolderWithTemplatesPath}\\" + GetTemplateFileName(printer, nozzle, Corrections.Type));
+                    var template = _ioService.GetFilamentTemplateContent($"{Corrections.FolderWithTemplatesPath}\\" + GetTemplateFileName(printer, nozzle, Corrections.Type));
 
                     if (template == null)
                     {
@@ -113,8 +93,8 @@ namespace BambuConfigGenerator.Core.Services
 
                     // Serialize the template with custom options
 
-                    var outputFinalPath = $"{outputPath}\\{outputFileName}";
-                    File.WriteAllText(outputFinalPath, JsonConvert.SerializeObject(template, Formatting.Indented));
+                    var outputFinalPath = $"{Corrections.SelectedOutputFolderPath}\\{outputFileName}";
+                    _ioService.SaveOutputConfiguration(outputFinalPath, template);
                 }
             }
 

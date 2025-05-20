@@ -2,7 +2,7 @@
 
 namespace BambuConfigGenerator.Models
 {
-    internal class FilamentModel
+    public class FilamentModel
     {
         [JsonProperty("activate_air_filtration")]
         public List<string> ActivateAirFiltration { get; set; }

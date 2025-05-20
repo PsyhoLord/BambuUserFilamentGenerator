@@ -19,4 +19,8 @@ public class CorrectionParametersModel
     public int RecommendedTemperatureMax { get; set; }
 
     public double FilamentFlowRatio { get; set; }
+
+    public string FolderWithTemplatesPath { get; set; } 
+
+    public string SelectedOutputFolderPath { get; set; }
 }

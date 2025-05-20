@@ -1,4 +1,4 @@
-﻿namespace BambuConfigGenerator.Core.Services;
+﻿namespace BambuConfigGenerator.Core.Services.PlatformSpecific;
 
 public interface IFileFolderPickerService
 {

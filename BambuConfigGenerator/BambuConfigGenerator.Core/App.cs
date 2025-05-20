@@ -22,6 +22,7 @@ public class App : MvxApplication
         // Mvx.IoCProvider?.RegisterSingleton<IMvxTextProvider>(new TextProviderBuilder().TextProvider);
         Mvx.IoCProvider?.RegisterSingleton<IIOService>(new IOService());
         Mvx.IoCProvider?.RegisterSingleton<ITemplateFolderAnalyserService>(new TemplateFolderAnalyserService());
+        Mvx.IoCProvider?.RegisterType<IFilamentProfileFileGeneratorService, FilamentProfileFileGeneratorService>();
 
         RegisterAppStart<FileGeneratorViewModel>();
     }

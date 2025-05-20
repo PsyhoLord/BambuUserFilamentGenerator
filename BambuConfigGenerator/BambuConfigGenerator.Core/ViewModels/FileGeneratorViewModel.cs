@@ -3,6 +3,8 @@ using System.Windows;
 using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
 using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Core.Services.PlatformSpecific;
+using MvvmCross;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 
@@ -11,6 +13,7 @@ namespace BambuConfigGenerator.Core.ViewModels;
 public class FileGeneratorViewModel : MvxViewModel
 {
     private readonly IFileFolderPickerService _fileFolderPickerService;
+    private readonly IIOService _ioService;
     private readonly ITemplateFolderAnalyserService _templateFolderAnalyserService;
     private string _filamentBrand = "3DPlast";
     private FilamentTypeUIModel _selectedFilamentType;
@@ -24,13 +27,15 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<NozzleUIModel> _nozzles;
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
 
-    public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService, ITemplateFolderAnalyserService templateFolderAnalyserService)
+    public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
+        IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService)
     {
         _fileFolderPickerService = fileFolderPickerService;
+        _ioService = ioService;
         _templateFolderAnalyserService = templateFolderAnalyserService;
 
         SelectFolderWithTemplates = new MvxAsyncCommand(SelectFolderWithTemplatesPath);
-        SelectFolderCommand = new MvxAsyncCommand(SelectFolder);
+        SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
         GenerateCommand = new MvxCommand(Generate);
 
         Init();
@@ -66,12 +71,59 @@ public class FileGeneratorViewModel : MvxViewModel
 #if DEBUG
         // For testing purposes
         FolderWithTemplatesPath = @"C:\Bambu\Template";
+
+        _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
+        FilamentTypes = _templateFolderAnalyserService.FilamentTypes;
+        SelectedFilamentType = FilamentTypes.FirstOrDefault();
+
         SelectedFolder = @"C:\Bambu\Output";
         Serial = "TEST";
         // SelectedFilamentType = FilamentTypes[0];
         Printers.FirstOrDefault(p => p.Printer == Enums.Printers.A1).IsSelected = true;
         Nozzles.FirstOrDefault(n=>n.Nozzle == Enums.Nozzles.Zero4).IsSelected = true;
 #endif
+        var configuration = _ioService.LoadConfiguration();
+
+        if (configuration != null)
+            ApplyConfiguration(configuration);
+    }
+
+    private void ApplyConfiguration(CorrectionParametersModel configuration)
+    {
+        FilamentBrand = configuration.Brand;
+        Serial = configuration.Serial;
+        RecommendedTemperatureMin = configuration.RecommendedTemperatureMin;
+        RecommendedTemperatureMax = configuration.RecommendedTemperatureMax;
+        FilamentFlowRatio = configuration.FilamentFlowRatio;
+        FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
+        SelectedFolder = configuration.SelectedOutputFolderPath;
+        
+        _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
+        if (!_templateFolderAnalyserService.IsValid)
+        {
+            MessageBox.Show("Invalid Folder", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+        else
+        {
+            FilamentTypes = _templateFolderAnalyserService.FilamentTypes;
+            var filamentTypeFromCfg = FilamentTypes?.FirstOrDefault(f => f.FilamentType == configuration.Type);
+            if (filamentTypeFromCfg != null)
+            {
+                SelectedFilamentType = filamentTypeFromCfg;
+            }
+        }
+
+        foreach (var configurationSelectedPrinter in configuration.SelectedPrinters)
+        {
+            var printer = Printers.FirstOrDefault(p => p.Printer == configuration.SelectedPrinters.FirstOrDefault());
+            if (printer != null) printer.IsSelected = true;
+        }
+
+        foreach (var configurationSelectedNozzle in configuration.SelectedNozzles)
+        {
+            var nozzle = Nozzles.FirstOrDefault(n => n.Nozzle == configuration.SelectedNozzles.FirstOrDefault());
+            if (nozzle != null) nozzle.IsSelected = true;
+        }
     }
 
     private async Task SelectFolderWithTemplatesPath()
@@ -90,33 +142,35 @@ public class FileGeneratorViewModel : MvxViewModel
         }
     }
 
-    private async Task SelectFolder()
+    private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
         SelectedFolder = path;
-        
     }
-    
 
     private void Generate()
     {
-        var filament = new FilamentProfileFileGeneratorService();
+        var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
-        filament.SetFilamentTemplatePath(FolderWithTemplatesPath);
-
-        filament.SetParametersForCorrections(new CorrectionParametersModel
+        var corrections = new CorrectionParametersModel
         {
             Brand = FilamentBrand,
             Type = SelectedFilamentType.FilamentType,
+            Serial = Serial,
             RecommendedTemperatureMin = RecommendedTemperatureMin,
             RecommendedTemperatureMax = RecommendedTemperatureMax,
             FilamentFlowRatio = FilamentFlowRatio,
             SelectedNozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList(),
             SelectedPrinters = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList(),
-            Serial = Serial
-        });
+            FolderWithTemplatesPath = FolderWithTemplatesPath,
+            SelectedOutputFolderPath = SelectedFolder
+        };
 
-        filament.GenerateOutputFiles(SelectedFolder);
+        filament.SetParametersForCorrections(corrections);
+
+        filament.GenerateOutputFiles();
+
+        _ioService.SaveConfiguration(corrections);
 
         MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
     }

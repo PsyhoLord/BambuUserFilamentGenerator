@@ -1,4 +1,4 @@
-﻿using BambuConfigGenerator.Core.Services;
+﻿using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using BambuConfigGenerator.Services;
 using Microsoft.Extensions.Logging;
 using MvvmCross;

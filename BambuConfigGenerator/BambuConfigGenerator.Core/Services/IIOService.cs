@@ -1,10 +1,14 @@
-﻿using BambuConfigGenerator.Models;
-using System.IO;
-using System.Text.Json;
+﻿using BambuConfigGenerator.Core.Models;
+using BambuConfigGenerator.Models;
 
 namespace BambuConfigGenerator.Core.Services;
 
-internal interface IIOService
+public interface IIOService
 {
-    public FilamentModel GetDefaultFilamentModel(string filePath);
+    public void SaveConfiguration(CorrectionParametersModel correction);
+    public CorrectionParametersModel? LoadConfiguration();
+
+    public FilamentModel GetFilamentTemplateContent(string path);
+
+    public void SaveOutputConfiguration(string outputFinalPath, FilamentModel template);
 }
