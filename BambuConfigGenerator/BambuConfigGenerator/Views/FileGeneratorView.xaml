@@ -7,59 +7,248 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    xmlns:customControls="clr-namespace:BambuConfigGenerator.CustomControls"
     Width="1000"
-    Height="800"
+    Height="750"
     d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel}"
     x:TypeArguments="viewModels:FileGeneratorViewModel"
     mc:Ignorable="d">
     <views:MvxWpfView.Resources>
         <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="20,5,0,5" />
+            <Setter Property="Margin" Value="20,15,0,15" />
             <Setter Property="Padding" Value="5" />
-            <Setter Property="Background" Value="#FFFAFAFA" />
-            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
+            <Setter Property="Foreground" Value="#7EE07E"/>
+            <Setter Property="Background" Value="#383838" />
+            <Setter Property="BorderBrush" Value="#424242" />
             <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="FontSize" Value="18" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#FAFAFA"/>
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="Margin" Value="0,5,0,5" />
+            <Setter Property="Margin" Value="20,0,0,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5,5,0,5" />
-            <Setter Property="Padding" Value="5" />
-            <Setter Property="Background" Value="#FFFAFAFA" />
-            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="#7EE07E"/>
+            <Setter Property="Background" Value="#2E2E2E" />
+            <Setter Property="BorderBrush" Value="#424242" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="FontSize" Value="18" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="160" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#64569DE5"/>
+                    <Setter Property="BorderBrush" Value="#569DE5"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Margin" Value="20,5,0,5" />
-            <Setter Property="Background" Value="#FFFAFAFA" />
-            <Setter Property="BorderBrush" Value="#FFBEBEBE" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="VerticalAlignment" Value="Center" />
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#383838"/>
+            <Setter Property="BorderBrush" Value="#424242"/>
+            <Setter Property="Foreground" Value="#7EE07E"/>
         </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="#7EE07E"/>
+        </Style>
+
+
+
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" 
+                        Grid.ColumnSpan="2"
+                        CornerRadius="0"
+                        Background="#FF3F3F3F"
+                        BorderBrush="#FF97A0A5"
+                        BorderThickness="1" />
+                <Border Grid.Column="0"
+                        CornerRadius="0" 
+                        Margin="1" 
+                        Background="#FF3F3F3F" 
+                        BorderBrush="#FF97A0A5"
+                        BorderThickness="0,0,1,0" />
+                <Path x:Name="Arrow"
+                      Grid.Column="1"     
+                      Fill="White"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center"
+                      Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"
+                    />
+            </Grid>
+            <!--<ControlTemplate.Triggers>
+                <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#808080" />
+                </Trigger>
+                <Trigger Property="ToggleButton.IsChecked" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="#E0E0E0" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
+                    <Setter Property="Foreground" Value="#888888"/>
+                    <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
+                </Trigger>
+            </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton 
+                                Name="ToggleButton" 
+                                Template="{StaticResource ComboBoxToggleButton}" 
+                                Grid.Column="2" 
+                                Focusable="false"
+                                IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
+                                ClickMode="Press">
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Margin="3,3,23,3"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left" />
+                            <TextBox x:Name="PART_EditableTextBox"
+                                Style="{x:Null}" 
+                                Template="{StaticResource ComboBoxTextBox}" 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center" 
+                                Margin="3,3,23,3"
+                                Focusable="True" 
+                                Background="#FF3F3F3F"
+                                Foreground="Green"
+                                Visibility="Hidden"
+                                IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup 
+                                Name="Popup"
+                                Placement="Bottom"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                AllowsTransparency="True" 
+                                Focusable="False"
+                                PopupAnimation="Slide">
+
+                                <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"                
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border 
+                                    x:Name="DropDownBorder"
+                                    Background="#FF3F3F3F"
+                                     
+                                    BorderThickness="1"
+                                    BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+            </Style.Triggers>
+        </Style>
+
+        <!-- SimpleStyles: ComboBoxItem -->
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border"
+                                  Padding="2"
+                                  SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FF4F4F4F"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#888888"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </views:MvxWpfView.Resources>
 
-    <Grid Background="AliceBlue">
+    <Grid Background="#242424">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -68,16 +257,11 @@
         <Label
             Grid.Row="0"
             Grid.Column="0"
-            Margin="10,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
             Content="Brand:" />
         <TextBox
             Grid.Row="0"
             Grid.Column="1"
-            Width="120"
-            HorizontalAlignment="Left"
-            HorizontalContentAlignment="Center"
+            HorizontalContentAlignment="Left"
             Text="{Binding FilamentBrand}"
             TextWrapping="Wrap" />
 
@@ -85,17 +269,15 @@
         <Label
             Grid.Row="1"
             Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Type:"
-            RenderTransformOrigin="0.642,0.156" />
+            Content="Type:" />
         <ComboBox
             Grid.Row="1"
             Grid.Column="1"
-            Width="120"
-            Margin="10"
+            Height="34"
+            Width="200"
+            Margin="20,10"
             HorizontalAlignment="Left"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             HorizontalContentAlignment="Center"
             DisplayMemberPath="Name"
             ItemsSource="{Binding FilamentTypes}"
@@ -105,9 +287,6 @@
         <Label
             Grid.Row="2"
             Grid.Column="0"
-            Margin="10,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
             Content="Serial:" />
         <TextBox
             Grid.Row="2"
@@ -120,10 +299,7 @@
         <Label
             Grid.Row="3"
             Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="Temperatures:"
-            RenderTransformOrigin="0.474,0.271" />
+            Content="Temperatures:" />
         <StackPanel
             Grid.Row="3"
             Grid.Column="1"
@@ -146,8 +322,6 @@
         <Label
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
             Content="Filament Flow Ratio:" />
         <TextBox
             Grid.Row="4"
@@ -163,8 +337,6 @@
         <Label
             Grid.Row="5"
             Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
             Content="Template Path:" />
         <TextBox
             Grid.Row="5"
@@ -176,9 +348,6 @@
         <Button
             Grid.Row="5"
             Grid.Column="2"
-            Width="120"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
             Command="{Binding SelectFolderWithTemplates}"
             Content="Select file" />
 
@@ -186,8 +355,6 @@
         <Label
             Grid.Row="6"
             Grid.Column="0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
             Content="Output Folder:" />
         <TextBox
             Grid.Row="6"
@@ -199,9 +366,6 @@
         <Button
             Grid.Row="6"
             Grid.Column="2"
-            Width="120"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
             Command="{Binding SelectFolderCommand}"
             Content="Select Folder" />
 
@@ -217,7 +381,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Column="0" Orientation="Vertical">
-                <Label Content="Select printers:" />
+                <Label Content="Select printers:"
+                       Margin="20,0"/>
                 <ListView
                     Width="200"
                     Margin="20,0"
@@ -237,7 +402,8 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Vertical">
-                <Label Content="Select nozzles:" />
+                <Label Content="Select nozzles:"
+                       Margin="20,0"/>
                 <ListView
                     Width="200"
                     Margin="20,0"
@@ -260,9 +426,9 @@
         <Button
             Grid.Row="8"
             Grid.Column="2"
-            Width="200"
-            Height="42"
-            Margin="10,10,20,0"
+            Width="180"
+            Height="62"
+            Margin="10,10,30,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Command="{Binding GenerateCommand}"
