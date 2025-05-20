@@ -37,7 +37,8 @@ public class HomeViewModel : MvxViewModel
             new MenuItem { Name = "Settings", ViewModel = SettingsVm }
         ];
 
-        AppVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        var appVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        AppVersion = $"v{appVersion}";
     }
 
     public string AppVersion

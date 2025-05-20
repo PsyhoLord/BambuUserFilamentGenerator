@@ -152,10 +152,8 @@ public class FileGeneratorViewModel : MvxViewModel
         SelectedFolder = path;
     }
 
-    private async void Generate()
+    private void Generate()
     {
-        await _navigationService.Navigate<SettingsViewModel>();
-        return;
         var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
         var corrections = new CorrectionParametersModel

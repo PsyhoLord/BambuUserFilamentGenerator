@@ -104,6 +104,7 @@
                 Grid.Row="1"
                 Content="{Binding AppVersion}"
                 FontSize="12"
+                HorizontalAlignment="Right"
                 Foreground="{StaticResource PrimaryBrush}" />
         </Grid>
 
