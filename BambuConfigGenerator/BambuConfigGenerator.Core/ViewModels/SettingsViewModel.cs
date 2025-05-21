@@ -46,22 +46,31 @@ public class SettingsViewModel : MvxViewModel
 
     private async Task SelectFolderToBambuLabUserFilaments()
     {
-        FolderToBambuLabUserFilaments = await SelectFolder(FolderToBambuLabUsers);
+        var path = await SelectFolder(FolderToBambuLabUsers);
+        if(string.IsNullOrEmpty(path))
+            return;
+        FolderToBambuLabUserFilaments = path;
     }
 
     private async Task SelectFolderToBambuLabUsers()
     {
-        FolderToBambuLabUsers = await SelectFolder(FolderToBambuLabUsers);
+        var path = await SelectFolder(FolderToBambuLabUsers);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabUsers = path;
     }
 
     private async Task SelectFolderToBambuLabUserApp()
     {
-        FolderToBambuLabApp = await SelectFolder(FolderToBambuLabUserApp);
+        var path = await SelectFolder(FolderToBambuLabUserApp);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabApp = path;
     }
 
     private async Task SelectFolderToBambuLabApp()
     {
-        FolderToBambuLabApp = await SelectFolder(FolderToBambuLabApp);
+        var path = await SelectFolder(FolderToBambuLabApp);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabApp = path;
     }
 
     private async Task<string> SelectFolder(string initialPath)
@@ -123,8 +132,6 @@ public class SettingsViewModel : MvxViewModel
         get => _folderToBambuLabUserFilaments;
         set => SetProperty(ref _folderToBambuLabUserFilaments, value);
     }
-
-
 
     public IMvxCommand SaveCommand { get; }
 

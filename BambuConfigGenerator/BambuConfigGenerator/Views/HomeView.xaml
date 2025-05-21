@@ -22,20 +22,59 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border
+        <Grid Grid.Column="0"
+              Width="200"
+              HorizontalAlignment="Left"
+              Background="{StaticResource BackgroundColorDarkBrush}"
+              Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView
+                Width="200"
+                Margin="0,40,0,0"
+                Padding="0,10"
+                HorizontalAlignment="Left"
+                BorderBrush="Transparent"
+                ItemsSource="{Binding MenuItems}"
+                SelectedIndex="{Binding SelectedMenuItemIndex}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <svgc:SvgViewbox 
+                                Width="40"
+                                Height="40"
+                                Source="{Binding IconSource}" />
+                            <Label
+                                Margin="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Content="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label
+                Grid.Row="1"
+                Content="{Binding AppVersion}"
+                FontSize="12"
+                HorizontalAlignment="Right"
+                Foreground="{StaticResource PrimaryBrush}" />
+        </Grid>
+
+        <Button
             Grid.Row="0"
             Grid.Column="0"
-            Background="#2E2E2E"
-            BorderBrush="#424242">
-            <Button
-                Width="40"
-                Height="40"
-                Margin="0"
-                VerticalAlignment="Top"
-                Command="{Binding OpenMenuCommand}">
-                <svgc:SvgViewbox Source="/Resources/hamburger-button-svgrepo-com.svg" />
-            </Button>
-        </Border>
+            Width="40"
+            Height="40"
+            Margin="0"
+            VerticalAlignment="Top"
+            Command="{Binding OpenMenuCommand}">
+            <svgc:SvgViewbox Source="/Resources/hamburger-button-svgrepo-com.svg" />
+        </Button>
+       
 
         <ContentControl
             Grid.Column="1"
@@ -71,43 +110,7 @@
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        <Grid Grid.Column="1"
-              Width="200"
-              HorizontalAlignment="Left"
-              Background="{StaticResource BackgroundColorDarkBrush}"
-              Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ListView
-                Width="200"
-                Margin="0,0"
-                Padding="0,10"
-                HorizontalAlignment="Left"
-                BorderBrush="Transparent"
-                ItemsSource="{Binding MenuItems}"
-                SelectedIndex="{Binding SelectedMenuItemIndex}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Label
-                                Margin="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Center"
-                                Content="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-            <Label
-                Grid.Row="1"
-                Content="{Binding AppVersion}"
-                FontSize="12"
-                HorizontalAlignment="Right"
-                Foreground="{StaticResource PrimaryBrush}" />
-        </Grid>
+        
 
     </Grid>
 </views:MvxWpfView>

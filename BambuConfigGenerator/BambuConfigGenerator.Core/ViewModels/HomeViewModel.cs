@@ -39,9 +39,9 @@ public class HomeViewModel : MvxViewModel
 
         MenuItems =
         [
-            new MenuItem { Name = "Filament Generator", ViewModel = fileGeneratorVm, IsVisible = true },
-            new MenuItem { Name = "Filament Editor", ViewModel = filamentEditorVm },
-            new MenuItem { Name = "Settings", ViewModel = settingsVm }
+            new MenuItem { Name = "Filament Generator", ViewModel = fileGeneratorVm, IsVisible = true, IconSource = "/Resources/border_color_24dp.svg"},
+            new MenuItem { Name = "Filament Editor", ViewModel = filamentEditorVm, IconSource = "/Resources/app_registration_24dp.svg" },
+            new MenuItem { Name = "Settings", ViewModel = settingsVm, IconSource = "/Resources/settings_24dp.svg" }
         ];
 
         var appVersion = Assembly.GetExecutingAssembly().GetName().Version;

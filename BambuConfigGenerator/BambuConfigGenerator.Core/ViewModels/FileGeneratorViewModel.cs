@@ -105,7 +105,7 @@ public class FileGeneratorViewModel : MvxViewModel
         FilamentFlowRatio = configuration.FilamentFlowRatio;
         FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
         SelectedFolder = configuration.SelectedOutputFolderPath;
-        
+
         _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
         if (!_templateFolderAnalyserService.IsValid)
         {
@@ -121,22 +121,19 @@ public class FileGeneratorViewModel : MvxViewModel
             }
         }
 
-        foreach (var configurationSelectedPrinter in configuration.SelectedPrinters)
-        {
-            var printer = Printers.FirstOrDefault(p => p.Printer == configuration.SelectedPrinters.FirstOrDefault());
-            if (printer != null) printer.IsSelected = true;
-        }
+        var printer = Printers.FirstOrDefault(p => p.Printer == configuration.SelectedPrinters.FirstOrDefault());
+        if (printer != null) printer.IsSelected = true;
 
-        foreach (var configurationSelectedNozzle in configuration.SelectedNozzles)
-        {
-            var nozzle = Nozzles.FirstOrDefault(n => n.Nozzle == configuration.SelectedNozzles.FirstOrDefault());
-            if (nozzle != null) nozzle.IsSelected = true;
-        }
+        var nozzle = Nozzles.FirstOrDefault(n => n.Nozzle == configuration.SelectedNozzles.FirstOrDefault());
+        if (nozzle != null) nozzle.IsSelected = true;
     }
 
     private async Task SelectFolderWithTemplatesPath()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
+        if (string.IsNullOrEmpty(path))
+            return;
+
         FolderWithTemplatesPath = path;
 
         _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
@@ -153,6 +150,8 @@ public class FileGeneratorViewModel : MvxViewModel
     private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
+        if(string.IsNullOrEmpty(path))
+            return;
         SelectedFolder = path;
     }
 

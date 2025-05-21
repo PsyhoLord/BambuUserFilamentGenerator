@@ -110,6 +110,8 @@ public class FilamentEditorViewModel : MvxViewModel
     private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(SelectedFolder);
+        if(string.IsNullOrEmpty(path))
+            return;
         SelectedFolder = path;
         OpenFolder();
     }
