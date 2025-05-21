@@ -7,6 +7,7 @@ using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 
 namespace BambuConfigGenerator.Core.ViewModels;
@@ -43,6 +44,8 @@ public class FileGeneratorViewModel : MvxViewModel
         SelectFolderWithTemplates = new MvxAsyncCommand(SelectFolderWithTemplatesPath);
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
         GenerateCommand = new MvxCommand(Generate);
+        OpenFolderWithTemplatesCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderWithTemplatesPath));
+        OpenFolderOutputCommand = new MvxCommand(() => Process.Start("explorer.exe", SelectedFolder));
 
         Init();
     }
@@ -253,6 +256,10 @@ public class FileGeneratorViewModel : MvxViewModel
     public IMvxAsyncCommand SelectFolderCommand { get; }
 
     public IMvxCommand GenerateCommand { get; }
+    public IMvxCommand OpenFolderWithTemplatesCommand { get; }
+    public IMvxCommand OpenFolderOutputCommand { get; }
+
+    
 
     #endregion
 }

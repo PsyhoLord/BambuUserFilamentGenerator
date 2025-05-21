@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel}"
@@ -169,11 +170,20 @@
                 VerticalAlignment="Top"
                 Text="{Binding FolderWithTemplatesPath}"
                 TextWrapping="Wrap" />
-            <Button
+            <StackPanel
                 Grid.Row="5"
                 Grid.Column="2"
-                Command="{Binding SelectFolderWithTemplates}"
-                Content="Select file" />
+                Orientation="Horizontal">
+                <Button Command="{Binding SelectFolderWithTemplates}" Content="Select file" />
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    Command="{Binding OpenFolderWithTemplatesCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+            </StackPanel>
 
             <!--  OUTPUT  -->
             <Label
@@ -187,11 +197,21 @@
                 VerticalAlignment="Top"
                 Text="{Binding SelectedFolder}"
                 TextWrapping="Wrap" />
-            <Button
+            <StackPanel
                 Grid.Row="6"
                 Grid.Column="2"
-                Command="{Binding SelectFolderCommand}"
-                Content="Select Folder" />
+                Orientation="Horizontal">
+                <Button Command="{Binding SelectFolderCommand}" Content="Select Folder" />
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    Command="{Binding OpenFolderOutputCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+
+            </StackPanel>
 
             <!--  Printer & nozzle  -->
             <Grid
