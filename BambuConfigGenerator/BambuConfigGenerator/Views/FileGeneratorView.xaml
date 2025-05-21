@@ -262,19 +262,20 @@
                         </ListBox.ItemTemplate>
                     </ListView>
                 </StackPanel>
+
+                <!--  GENERATE!  -->
+                <Button
+                    Grid.Column="2"
+                    Width="180"
+                    Height="62"
+                    Margin="10,10,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding GenerateCommand}"
+                    Content="Generate!" />
             </Grid>
 
-            <!--  GENERATE!  -->
-            <Button
-                Grid.Row="8"
-                Grid.Column="2"
-                Width="180"
-                Height="62"
-                Margin="10,10,30,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Command="{Binding GenerateCommand}"
-                Content="Generate!" />
+
         </Grid>
     </Grid>
 </views:MvxWpfView>
