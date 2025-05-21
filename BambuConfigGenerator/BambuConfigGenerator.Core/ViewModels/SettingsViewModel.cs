@@ -1,4 +1,5 @@
 ﻿using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Core.Services.Interfaces;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;

@@ -2,7 +2,7 @@
 using BambuConfigGenerator.Core.Models.UIModels;
 using MvvmCross.ViewModels;
 
-namespace BambuConfigGenerator.Core.Services;
+namespace BambuConfigGenerator.Core.Services.Interfaces;
 
 public interface IIOService
 {

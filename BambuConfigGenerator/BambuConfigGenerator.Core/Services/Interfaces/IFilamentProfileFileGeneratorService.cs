@@ -1,7 +1,7 @@
 ﻿using BambuConfigGenerator.Core.Enums;
 using BambuConfigGenerator.Core.Models;
 
-namespace BambuConfigGenerator.Core.Services;
+namespace BambuConfigGenerator.Core.Services.Interfaces;
 
 internal interface IFilamentProfileFileGeneratorService
 {

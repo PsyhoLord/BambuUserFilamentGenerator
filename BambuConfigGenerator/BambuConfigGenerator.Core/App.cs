@@ -3,6 +3,7 @@ using BambuConfigGenerator.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.ViewModels;
 using MvvmCross.IoC;
+using BambuConfigGenerator.Core.Services.Interfaces;
 
 namespace BambuConfigGenerator.Core;
 

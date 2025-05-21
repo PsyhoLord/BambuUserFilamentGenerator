@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using BambuConfigGenerator.Core.Models.UIModels;
 
-namespace BambuConfigGenerator.Core.Services;
+namespace BambuConfigGenerator.Core.Services.Interfaces;
 
 public interface ITemplateFolderAnalyserService
 {
