@@ -9,6 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\delete_24dp.svg" />
+    <None Remove="Resources\folder_24dp.svg" />
     <None Remove="Resources\refresh.svg" />
   </ItemGroup>
 
@@ -27,6 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\delete_24dp.svg" />
+    <Resource Include="Resources\folder_24dp.svg" />
     <Resource Include="Resources\hamburger-button-svgrepo-com.svg" />
     <Resource Include="Resources\refresh.svg" />
   </ItemGroup>

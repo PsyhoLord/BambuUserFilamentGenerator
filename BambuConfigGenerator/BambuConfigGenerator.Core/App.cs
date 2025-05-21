@@ -24,6 +24,7 @@ public class App : MvxApplication
         Mvx.IoCProvider?.RegisterSingleton<IIOService>(new IOService());
         Mvx.IoCProvider?.RegisterSingleton<ITemplateFolderAnalyserService>(new TemplateFolderAnalyserService());
         Mvx.IoCProvider?.RegisterType<IFilamentProfileFileGeneratorService, FilamentProfileFileGeneratorService>();
+        Mvx.IoCProvider?.RegisterType<IUserSettingsService, UserSettingsService>();
 
         RegisterAppStart<HomeViewModel>();
     }

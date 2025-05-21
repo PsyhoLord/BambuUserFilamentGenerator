@@ -1,6 +1,5 @@
 ﻿using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
-using BambuConfigGenerator.Core.Services;
 using BambuConfigGenerator.Core.Services.Interfaces;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross;
@@ -18,6 +17,7 @@ public class FileGeneratorViewModel : MvxViewModel
     private readonly IIOService _ioService;
     private readonly ITemplateFolderAnalyserService _templateFolderAnalyserService;
     private readonly IMvxNavigationService _navigationService;
+    private readonly IUserSettingsService _userSettingsService;
     private string _filamentBrand = "3DPlast";
     private FilamentTypeUIModel _selectedFilamentType;
     private double _filamentFlowRatio = 0.96;
@@ -32,12 +32,13 @@ public class FileGeneratorViewModel : MvxViewModel
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
-        IMvxNavigationService  navigationService)
+        IMvxNavigationService  navigationService, IUserSettingsService userSettingsService)
     {
         _fileFolderPickerService = fileFolderPickerService;
         _ioService = ioService;
         _templateFolderAnalyserService = templateFolderAnalyserService;
         _navigationService = navigationService;
+        _userSettingsService = userSettingsService;
 
         SelectFolderWithTemplates = new MvxAsyncCommand(SelectFolderWithTemplatesPath);
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
@@ -81,10 +82,15 @@ public class FileGeneratorViewModel : MvxViewModel
         Printers.FirstOrDefault(p => p.Printer == Enums.Printers.A1).IsSelected = true;
         Nozzles.FirstOrDefault(n=>n.Nozzle == Enums.Nozzles.Zero4).IsSelected = true;
 #endif
-        var configuration = _ioService.LoadConfiguration();
+        var configuration = _ioService.LoadCorrections();
 
         if (configuration != null)
             ApplyConfiguration(configuration);
+        else
+        {
+            var userConfig = _userSettingsService.UserSettings;
+            SelectedFolder = userConfig.FolderToBambuLabUserFilaments;
+        }
     }
 
     private void ApplyConfiguration(CorrectionParametersModel configuration)
@@ -169,7 +175,7 @@ public class FileGeneratorViewModel : MvxViewModel
 
         filament.GenerateOutputFiles();
 
-        _ioService.SaveConfiguration(corrections);
+        _ioService.SaveCorrections(corrections);
 
         MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
     }

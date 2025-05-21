@@ -24,6 +24,20 @@ public class FileFolderPickerService : IFileFolderPickerService
         return null;
     }
 
+    public List<string> GetListOfFoldersInDirectory(string path)
+    {
+        var folders = new List<string>();
+        try
+        {
+            folders = System.IO.Directory.GetDirectories(path).ToList();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        return folders;
+    }
+
     public List<string> GetListOfFilesInFolder(string path, string format = null)
     {
         var files = new List<string>();

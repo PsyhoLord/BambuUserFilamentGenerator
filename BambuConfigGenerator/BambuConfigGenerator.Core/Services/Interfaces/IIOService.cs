@@ -6,8 +6,12 @@ namespace BambuConfigGenerator.Core.Services.Interfaces;
 
 public interface IIOService
 {
-    public void SaveConfiguration(CorrectionParametersModel correction);
-    public CorrectionParametersModel? LoadConfiguration();
+    public UserSettingsModel LoadUserSettingsModel();
+
+    public void SaveUserSettings(UserSettingsModel userSettingsModel);
+
+    public void SaveCorrections(CorrectionParametersModel correction);
+    public CorrectionParametersModel? LoadCorrections();
 
     public Dictionary<string, string> GetFilamentConfigValuePairs(string path);
 
