@@ -6,5 +6,7 @@ public interface IFileFolderPickerService
 
     public Task<string> SelectFolder(string initialPath);
 
+    public List<string> GetListOfFoldersInDirectory(string path);
+
     public List<string> GetListOfFilesInFolder(string path, string format = null);
 }

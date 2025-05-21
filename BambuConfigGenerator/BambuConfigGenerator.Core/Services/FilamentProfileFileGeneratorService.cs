@@ -2,6 +2,7 @@
 using System.IO;
 using BambuConfigGenerator.Core.Enums;
 using BambuConfigGenerator.Core.Models;
+using BambuConfigGenerator.Core.Services.Interfaces;
 
 namespace BambuConfigGenerator.Core.Services
 {

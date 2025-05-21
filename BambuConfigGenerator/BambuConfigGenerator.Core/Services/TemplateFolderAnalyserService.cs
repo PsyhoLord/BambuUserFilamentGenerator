@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
 using BambuConfigGenerator.Core.Models.UIModels;
+using BambuConfigGenerator.Core.Services.Interfaces;
 using Path = System.IO.Path;
 
 namespace BambuConfigGenerator.Core.Services;

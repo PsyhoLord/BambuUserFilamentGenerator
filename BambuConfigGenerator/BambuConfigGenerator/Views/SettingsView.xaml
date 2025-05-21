@@ -3,15 +3,253 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:BambuConfigGenerator.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     Width="1000"
     Height="750"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
     x:TypeArguments="viewModels:SettingsViewModel"
     mc:Ignorable="d">
-    <Grid Background="#242424" />
+    <Grid Background="#242424">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Settings" />
+        <StackPanel Grid.Row="1" Margin="20,0">
+
+            <!-- UserId -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="User ID"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="200"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding UserId}" />
+            </Grid>
+
+            <!-- FolderToBambuLabApp -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="BambuLab App"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding FolderToBambuLabApp}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="140"
+                    Margin="5,0"
+                    Command="{Binding SelectFolderToBambuLabAppCommand}"
+                    Content="Select folder" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding OpenFolderToBambuLabAppCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ClearFolderToBambuLabAppCommand}">
+                    <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
+                </Button>
+            </Grid>
+
+            <!-- FolderToBambuLabUserApp -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="BambuLab user app data"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding FolderToBambuLabUserApp}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="140"
+                    Margin="5,0"
+                    Command="{Binding SelectFolderToBambuLabUserAppCommand}"
+                    Content="Select folder" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding OpenFolderToBambuLabUserAppCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ClearFolderToBambuLabUserAppCommand}">
+                    <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
+                </Button>
+            </Grid>
+
+            <!-- FolderToBambuLabUsers -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="BambuLab Folder to users"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding FolderToBambuLabUsers}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="140"
+                    Margin="5,0"
+                    Command="{Binding SelectFolderToBambuLabUsersCommand}"
+                    Content="Select folder" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding OpenFolderToBambuLabUsersCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ClearFolderToBambuLabUsersCommand}">
+                    <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
+                </Button>
+            </Grid>
+
+            <!-- FolderToBambuLabUserFilaments -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="Folder to users filament presets"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding FolderToBambuLabUserFilaments}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="140"
+                    Margin="5,0"
+                    Command="{Binding SelectFolderToBambuLabUserFilamentsCommand}"
+                    Content="Select folder" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding OpenFolderToBambuLabUserFilamentsCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ClearFolderToBambuLabUserFilamentsCommand}">
+                    <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
+                </Button>
+            </Grid>
+
+            <Button
+                Margin="0,10"
+                HorizontalAlignment="Right"
+                Command="{Binding SaveCommand}"
+                Content="Save" />
+        </StackPanel>
+
+            
+    </Grid>
 </views:MvxWpfView>

@@ -3,6 +3,7 @@ using BambuConfigGenerator.Core.ViewModels;
 using MvvmCross;
 using MvvmCross.ViewModels;
 using MvvmCross.IoC;
+using BambuConfigGenerator.Core.Services.Interfaces;
 
 namespace BambuConfigGenerator.Core;
 
@@ -23,6 +24,7 @@ public class App : MvxApplication
         Mvx.IoCProvider?.RegisterSingleton<IIOService>(new IOService());
         Mvx.IoCProvider?.RegisterSingleton<ITemplateFolderAnalyserService>(new TemplateFolderAnalyserService());
         Mvx.IoCProvider?.RegisterType<IFilamentProfileFileGeneratorService, FilamentProfileFileGeneratorService>();
+        Mvx.IoCProvider?.RegisterType<IUserSettingsService, UserSettingsService>();
 
         RegisterAppStart<HomeViewModel>();
     }

@@ -4,249 +4,277 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     d:DataContext="{d:DesignInstance viewModels:FileGeneratorViewModel}"
     x:TypeArguments="viewModels:FileGeneratorViewModel"
     mc:Ignorable="d">
-    
-    <Grid Background="#242424">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Brand  -->
-        <Label
-            Grid.Row="0"
-            Grid.Column="0"
-            Content="Brand:" />
-        <TextBox
-            Grid.Row="0"
-            Grid.Column="1"
-            HorizontalContentAlignment="Left"
-            Text="{Binding FilamentBrand}"
-            TextWrapping="Wrap" />
+        <Label Content="Filament generator" />
 
-        <!--  Type  -->
-        <Label
-            Grid.Row="1"
-            Grid.Column="0"
-            Content="Type:" />
-        <ComboBox
-            Grid.Row="1"
-            Grid.Column="1"
-            Width="200"
-            Height="34"
-            Margin="20,10"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            HorizontalContentAlignment="Center"
-            DisplayMemberPath="Name"
-            ItemsSource="{Binding FilamentTypes}"
-            SelectedItem="{Binding SelectedFilamentType}" />
-
-        <!--  Serial  -->
-        <Label
-            Grid.Row="2"
-            Grid.Column="0"
-            Content="Serial:" />
-        <TextBox
-            Grid.Row="2"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            Text="{Binding Serial}"
-            TextWrapping="Wrap">
-            <TextBox.Style>
-                <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
-                    <Setter Property="Margin" Value="20,15,0,15" />
-                    <Setter Property="Padding" Value="5" />
-                    <Setter Property="Foreground" Value="#7EE07E" />
-                    <Setter Property="Background" Value="#383838" />
-                    <Setter Property="BorderBrush" Value="#424242" />
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                    <Setter Property="FontSize" Value="18" />
-                    <Setter Property="VerticalAlignment" Value="Center" />
-                    <Style.Resources>
-                        <VisualBrush
-                            x:Key="CueBannerBrush"
-                            AlignmentX="Left"
-                            AlignmentY="Center"
-                            Stretch="None">
-                            <VisualBrush.Visual>
-                                <Label
-                                    Background="Transparent"
-                                    Content="Color, model, serial..."
-                                    FontSize="18"
-                                    Foreground="#727272" />
-                            </VisualBrush.Visual>
-                        </VisualBrush>
-                    </Style.Resources>
-                    <Style.Triggers>
-                        <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
-                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                            <Setter Property="BorderBrush" Value="#424242" />
-                        </Trigger>
-                        <Trigger Property="Text" Value="{x:Null}">
-                            <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
-                            <Setter Property="BorderBrush" Value="#424242" />
-                        </Trigger>
-                        <Trigger Property="IsKeyboardFocused" Value="True">
-                            <Setter Property="Background" Value="#383838" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-
-        <!--  Recommended Temperature  -->
-        <Label
-            Grid.Row="3"
-            Grid.Column="0"
-            Content="Temperatures:" />
-        <StackPanel
-            Grid.Row="3"
-            Grid.Column="1"
-            Orientation="Horizontal">
-            <TextBox
-                Width="50"
-                HorizontalAlignment="Left"
-                HorizontalContentAlignment="Center"
-                Text="{Binding RecommendedTemperatureMin}"
-                TextWrapping="Wrap" />
-            <TextBox
-                Width="50"
-                HorizontalAlignment="Left"
-                HorizontalContentAlignment="Center"
-                Text="{Binding RecommendedTemperatureMax}"
-                TextWrapping="Wrap" />
-        </StackPanel>
-
-        <!--  Flow  -->
-        <Label
-            Grid.Row="4"
-            Grid.Column="0"
-            Content="Filament Flow Ratio:" />
-        <TextBox
-            Grid.Row="4"
-            Grid.Column="1"
-            Width="120"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            HorizontalContentAlignment="Center"
-            Text="{Binding FilamentFlowRatio}"
-            TextWrapping="Wrap" />
-
-        <!--  Template  -->
-        <Label
-            Grid.Row="5"
-            Grid.Column="0"
-            Content="Template Path:" />
-        <TextBox
-            Grid.Row="5"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Text="{Binding FolderWithTemplatesPath}"
-            TextWrapping="Wrap" />
-        <Button
-            Grid.Row="5"
-            Grid.Column="2"
-            Command="{Binding SelectFolderWithTemplates}"
-            Content="Select file" />
-
-        <!--  OUTPUT  -->
-        <Label
-            Grid.Row="6"
-            Grid.Column="0"
-            Content="Output Folder:" />
-        <TextBox
-            Grid.Row="6"
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Top"
-            Text="{Binding SelectedFolder}"
-            TextWrapping="Wrap" />
-        <Button
-            Grid.Row="6"
-            Grid.Column="2"
-            Command="{Binding SelectFolderCommand}"
-            Content="Select Folder" />
-
-        <!--  Printer & nozzle  -->
-        <Grid
-            Grid.Row="7"
-            Grid.Column="0"
-            Grid.ColumnSpan="3"
-            Margin="10,0,0,0">
+        <Grid Grid.Row="1" Background="#242424">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Vertical">
-                <Label Margin="20,0" Content="Select printers:" />
-                <ListView
-                    Width="200"
-                    Margin="20,0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--  Brand  -->
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Content="Brand:" />
+            <TextBox
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalContentAlignment="Left"
+                Text="{Binding FilamentBrand}"
+                TextWrapping="Wrap" />
+
+            <!--  Type  -->
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Content="Type:" />
+            <ComboBox
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="200"
+                Height="34"
+                Margin="20,10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Center"
+                DisplayMemberPath="Name"
+                ItemsSource="{Binding FilamentTypes}"
+                SelectedItem="{Binding SelectedFilamentType}" />
+
+            <!--  Serial  -->
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                Content="Serial:" />
+            <TextBox
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                Text="{Binding Serial}"
+                TextWrapping="Wrap">
+                <TextBox.Style>
+                    <Style xmlns:sys="clr-namespace:System;assembly=mscorlib" TargetType="TextBox">
+                        <Setter Property="Margin" Value="20,15,0,15" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="Foreground" Value="#7EE07E" />
+                        <Setter Property="Background" Value="#383838" />
+                        <Setter Property="BorderBrush" Value="#424242" />
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="FontSize" Value="18" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Style.Resources>
+                            <VisualBrush
+                                x:Key="CueBannerBrush"
+                                AlignmentX="Left"
+                                AlignmentY="Center"
+                                Stretch="None">
+                                <VisualBrush.Visual>
+                                    <Label
+                                        Background="Transparent"
+                                        Content="Color, model, serial..."
+                                        FontSize="18"
+                                        Foreground="#727272" />
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                <Setter Property="BorderBrush" Value="#424242" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Background" Value="{StaticResource CueBannerBrush}" />
+                                <Setter Property="BorderBrush" Value="#424242" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="#383838" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
+            <!--  Recommended Temperature  -->
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Content="Temperatures:" />
+            <StackPanel
+                Grid.Row="3"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <TextBox
+                    Width="50"
                     HorizontalAlignment="Left"
-                    ItemsSource="{Binding Printers}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox
-                                    Margin="5"
-                                    Content="{Binding Name}"
-                                    IsChecked="{Binding IsSelected}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListView>
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding RecommendedTemperatureMin}"
+                    TextWrapping="Wrap" />
+                <TextBox
+                    Width="50"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding RecommendedTemperatureMax}"
+                    TextWrapping="Wrap" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Orientation="Vertical">
-                <Label Margin="20,0" Content="Select nozzles:" />
-                <ListView
-                    Width="200"
-                    Margin="20,0"
-                    ItemsSource="{Binding Nozzles}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox
-                                    Margin="5"
-                                    Content="{Binding Name}"
-                                    IsChecked="{Binding IsSelected}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListView>
+            <!--  Flow  -->
+            <Label
+                Grid.Row="4"
+                Grid.Column="0"
+                Content="Filament Flow Ratio:" />
+            <TextBox
+                Grid.Row="4"
+                Grid.Column="1"
+                Width="120"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                Text="{Binding FilamentFlowRatio}"
+                TextWrapping="Wrap" />
+
+            <!--  Template  -->
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                Content="Template Path:" />
+            <TextBox
+                Grid.Row="5"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Text="{Binding FolderWithTemplatesPath}"
+                TextWrapping="Wrap" />
+            <StackPanel
+                Grid.Row="5"
+                Grid.Column="2"
+                Orientation="Horizontal">
+                <Button Command="{Binding SelectFolderWithTemplates}" Content="Select file" />
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    Command="{Binding OpenFolderWithTemplatesCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
             </StackPanel>
+
+            <!--  OUTPUT  -->
+            <Label
+                Grid.Row="6"
+                Grid.Column="0"
+                Content="Output Folder:" />
+            <TextBox
+                Grid.Row="6"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Text="{Binding SelectedFolder}"
+                TextWrapping="Wrap" />
+            <StackPanel
+                Grid.Row="6"
+                Grid.Column="2"
+                Orientation="Horizontal">
+                <Button Command="{Binding SelectFolderCommand}" Content="Select Folder" />
+                <Button
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Center"
+                    Command="{Binding OpenFolderOutputCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+
+            </StackPanel>
+
+            <!--  Printer & nozzle  -->
+            <Grid
+                Grid.Row="7"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="10,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Vertical">
+                    <Label Margin="20,0" Content="Select printers:" />
+                    <ListView
+                        Width="200"
+                        Margin="20,0"
+                        HorizontalAlignment="Left"
+                        ItemsSource="{Binding Printers}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox
+                                        Margin="5"
+                                        Content="{Binding Name}"
+                                        IsChecked="{Binding IsSelected}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <Label Margin="20,0" Content="Select nozzles:" />
+                    <ListView
+                        Width="200"
+                        Margin="20,0"
+                        ItemsSource="{Binding Nozzles}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox
+                                        Margin="5"
+                                        Content="{Binding Name}"
+                                        IsChecked="{Binding IsSelected}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+
+            <!--  GENERATE!  -->
+            <Button
+                Grid.Row="8"
+                Grid.Column="2"
+                Width="180"
+                Height="62"
+                Margin="10,10,30,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding GenerateCommand}"
+                Content="Generate!" />
         </Grid>
-
-        <!--  GENERATE!  -->
-        <Button
-            Grid.Row="8"
-            Grid.Column="2"
-            Width="180"
-            Height="62"
-            Margin="10,10,30,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Command="{Binding GenerateCommand}"
-            Content="Generate!" />
     </Grid>
 </views:MvxWpfView>

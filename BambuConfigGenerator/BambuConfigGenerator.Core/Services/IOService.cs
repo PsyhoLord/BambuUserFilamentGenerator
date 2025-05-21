@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
+using BambuConfigGenerator.Core.Services.Interfaces;
 using MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
@@ -10,35 +11,29 @@ namespace BambuConfigGenerator.Core.Services
     internal class IOService : IIOService
     {
         private const string UserConfigFileName = "UserConfig.json";
+        private const string UserCorrectionsFileName = "UserCorrectionsConfig.json";
 
-        public void SaveConfiguration(CorrectionParametersModel correction)
+        public UserSettingsModel LoadUserSettingsModel()
         {
-            if (correction == null)
-            {
-                throw new ArgumentNullException(nameof(correction), "Correction parameters cannot be null.");
-            }
-
-            var jsonString = JsonConvert.SerializeObject(correction, Formatting.Indented);
-            File.WriteAllText(UserConfigFileName, jsonString);
+            return LoadModelFromFile<UserSettingsModel>(UserConfigFileName);
         }
 
-        public CorrectionParametersModel? LoadConfiguration()
+        public void SaveUserSettings(UserSettingsModel userSettingsModel)
         {
-            if (!File.Exists(UserConfigFileName))
-            {
-                return null;
-            }
-
-            var jsonString = File.ReadAllText(UserConfigFileName);
-            var configuration = JsonConvert.DeserializeObject<CorrectionParametersModel>(jsonString);
-
-            if (configuration == null)
-            {
-                File.Delete(UserConfigFileName);
-            }
-
-            return configuration;
+            SaveModelToFile(userSettingsModel, UserConfigFileName);
         }
+
+        public void SaveCorrections(CorrectionParametersModel correction)
+        {
+            SaveModelToFile(correction, UserCorrectionsFileName);
+        }
+
+        public CorrectionParametersModel? LoadCorrections()
+        {
+            return LoadModelFromFile<CorrectionParametersModel>(UserCorrectionsFileName);
+        }
+
+        
 
         public Dictionary<string, string> GetFilamentConfigValuePairs(string path)
         {
@@ -114,6 +109,34 @@ namespace BambuConfigGenerator.Core.Services
         public void SaveOutputConfiguration(string outputFinalPath, FilamentModel template)
         {
             File.WriteAllText(outputFinalPath, JsonConvert.SerializeObject(template, Formatting.Indented));
+        }
+
+        private T LoadModelFromFile<T>(string path)
+        {
+            if (!File.Exists(path))
+            {
+                return default;
+            }
+
+            var jsonString = File.ReadAllText(path);
+            var configuration = JsonConvert.DeserializeObject<T>(jsonString);
+
+            if (configuration == null)
+            {
+                File.Delete(path);
+            }
+
+            return configuration;
+        }
+
+        private void SaveModelToFile(object model, string path)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model), "Model cannot be null.");
+            }
+            var jsonString = JsonConvert.SerializeObject(model, Formatting.Indented);
+            File.WriteAllText(path, jsonString);
         }
     }
 }

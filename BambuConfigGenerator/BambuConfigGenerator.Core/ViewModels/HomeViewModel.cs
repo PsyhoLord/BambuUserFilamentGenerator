@@ -1,5 +1,5 @@
 ﻿using BambuConfigGenerator.Core.Models.UIModels;
-using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Core.Services.Interfaces;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
@@ -22,20 +22,20 @@ public class HomeViewModel : MvxViewModel
 
     public HomeViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
-        IMvxNavigationService navigationService)
+        IMvxNavigationService navigationService, IUserSettingsService userSettingsService)
     {
         NavigationService = navigationService;
         
         OpenMenuCommand = new MvxCommand(OpenMenu);
 
         var fileGeneratorVm = new FileGeneratorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
-            navigationService);
+            navigationService, userSettingsService);
 
         var filamentEditorVm = new FilamentEditorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
-            navigationService);
+            navigationService, userSettingsService);
 
         var settingsVm = new SettingsViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
-            navigationService);
+            navigationService, userSettingsService);
 
         MenuItems =
         [

@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     xmlns:viewModels="clr-namespace:BambuConfigGenerator.Core.ViewModels;assembly=BambuConfigGenerator.Core"
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
-    xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     d:DesignHeight="450"
     d:DesignWidth="800"
     x:TypeArguments="viewModels:FilamentEditorViewModel"
@@ -18,10 +18,10 @@
         </Grid.RowDefinitions>
         <Label Content="Filament Editor" />
 
-        <Grid Grid.Row="1" >
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Margin="20,10">
                 <Grid.RowDefinitions>
@@ -40,18 +40,18 @@
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="{Binding SelectedFolder}"
-                    Margin="20,0" />
+                    Margin="20,0"
+                    Text="{Binding SelectedFolder}" />
                 <Button
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="140"
-                    Command="{Binding SelectFolderCommand}"
                     Margin="10,0"
+                    Command="{Binding SelectFolderCommand}"
                     Content="Select folder" />
                 <Button
-                    Grid.Column="2"
                     Grid.Row="1"
+                    Grid.Column="2"
                     Width="40"
                     Height="40"
                     Margin="0"
@@ -81,18 +81,18 @@
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="20,0"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    SelectedIndex="{Binding SelectedFileIndex}"
-                    ItemsSource="{Binding FileList}">
+                    ItemsSource="{Binding FileList}"
+                    SelectedIndex="{Binding SelectedFileIndex}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label
-                                    Foreground="{StaticResource PrimaryBrush}"
                                     Margin="0"
+                                    Content="{Binding FileName}"
                                     FontSize="14"
-                                    Content="{Binding FileName}" />
+                                    Foreground="{StaticResource PrimaryBrush}" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -113,14 +113,22 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Key}" Margin="0"/>
-                                <TextBox Text="{Binding Value}" Margin="0" TextWrapping="NoWrap"/>
+                                <Label Margin="0" Content="{Binding Key}" />
+                                <TextBox
+                                    Margin="0"
+                                    Text="{Binding Value}"
+                                    TextWrapping="NoWrap" />
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="2" Grid.Column="1" Content="Save" HorizontalAlignment="Right"
-                        Command="{Binding SaveCommand}"/>
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="20,10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding SaveCommand}"
+                    Content="Save" />
 
             </Grid>
         </Grid>
