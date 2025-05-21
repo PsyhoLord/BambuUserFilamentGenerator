@@ -10,5 +10,107 @@
     d:DesignWidth="800"
     x:TypeArguments="viewModels:FilamentEditorViewModel"
     mc:Ignorable="d">
-    <Grid />
+    <Grid VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Content="Filament Editor" />
+
+        <Grid Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="20,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="Select folder"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="{Binding SelectedFolder}"
+                    Margin="20,0" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="100"
+                    Command="{Binding SelectFolderCommand}"
+                    Margin="20,0"
+                    Content="Select folder" />
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="20,0"
+                    Content="Select file:" />
+                <ListView
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    SelectedIndex="{Binding SelectedFileIndex}"
+                    ItemsSource="{Binding FileList}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label
+                                    Foreground="{StaticResource PrimaryBrush}"
+                                    Margin="0"
+                                    FontSize="14"
+                                    Content="{Binding FileName}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="20,0"
+                    Content="Content:" />
+                <ListView
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="20,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ItemsSource="{Binding FilamentParamsCollection}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Key}" Margin="0"/>
+                                <TextBox Text="{Binding Value}" Margin="0" TextWrapping="NoWrap"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
+                <Button Grid.Row="2" Grid.Column="1" Content="Save" HorizontalAlignment="Right"
+                        Command="{Binding SaveCommand}"/>
+
+            </Grid>
+        </Grid>
+    </Grid>
 </views:MvxWpfView>

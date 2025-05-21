@@ -47,12 +47,6 @@ public class FileGeneratorViewModel : MvxViewModel
 
     private void Init()
     {
-        /*FilamentTypes =
-        [
-            new FilamentTypeUIModel { Name = "PLA", FilamentType = Enums.FilamentTypes.PLA },
-            new FilamentTypeUIModel { Name = "PETG", FilamentType = Enums.FilamentTypes.PETG },
-        ];*/
-
         Printers =
         [
             new PrinterUIModel { Name = "A1 Mini", Printer = Enums.Printers.A1Mini },

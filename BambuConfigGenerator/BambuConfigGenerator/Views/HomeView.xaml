@@ -50,6 +50,7 @@
 
         <ContentControl
             Grid.Column="1"
+            VerticalAlignment="Stretch"
             Content="{Binding MenuItems[1].ViewModel}"
             Visibility="{Binding MenuItems[1].IsVisible, Converter={StaticResource Visibility}}">
             <ContentControl.ContentTemplate>

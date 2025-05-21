@@ -7,6 +7,8 @@ public interface IIOService
     public void SaveConfiguration(CorrectionParametersModel correction);
     public CorrectionParametersModel? LoadConfiguration();
 
+    public Dictionary<string, string> GetFilamentConfigValuePairs(string path);
+
     public FilamentModel GetFilamentTemplateContent(string path);
 
     public void SaveOutputConfiguration(string outputFinalPath, FilamentModel template);

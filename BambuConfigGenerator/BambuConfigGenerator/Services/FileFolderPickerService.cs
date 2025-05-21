@@ -24,6 +24,22 @@ public class FileFolderPickerService : IFileFolderPickerService
         return null;
     }
 
+    public List<string> GetListOfFilesInFolder(string path, string format = null)
+    {
+        var files = new List<string>();
+        try
+        {
+            files = string.IsNullOrEmpty(format)
+               ? System.IO.Directory.GetFiles(path).ToList()
+               : System.IO.Directory.GetFiles(path, format).ToList();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        return files;
+    }
+
     public async Task<string> SelectFolder(string initialPath)
     {
         // Create a "Save As" dialog for selecting a directory (HACK)

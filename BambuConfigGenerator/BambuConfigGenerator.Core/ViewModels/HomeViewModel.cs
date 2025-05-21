@@ -25,16 +25,23 @@ public class HomeViewModel : MvxViewModel
         IMvxNavigationService navigationService)
     {
         NavigationService = navigationService;
-        FileGeneratorVm = new FileGeneratorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
-            navigationService);// Mvx.IoCProvider.Resolve<FileGeneratorViewModel>();
-
+        
         OpenMenuCommand = new MvxCommand(OpenMenu);
+
+        var fileGeneratorVm = new FileGeneratorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
+            navigationService);
+
+        var filamentEditorVm = new FilamentEditorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
+            navigationService);
+
+        var settingsVm = new SettingsViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
+            navigationService);
 
         MenuItems =
         [
-            new MenuItem { Name = "Filament Generator", ViewModel = FileGeneratorVm, IsVisible = true },
-            new MenuItem { Name = "Filament Editor", ViewModel = FilamentEditorVm },
-            new MenuItem { Name = "Settings", ViewModel = SettingsVm }
+            new MenuItem { Name = "Filament Generator", ViewModel = fileGeneratorVm, IsVisible = true },
+            new MenuItem { Name = "Filament Editor", ViewModel = filamentEditorVm },
+            new MenuItem { Name = "Settings", ViewModel = settingsVm }
         ];
 
         var appVersion = Assembly.GetExecutingAssembly().GetName().Version;
@@ -52,25 +59,6 @@ public class HomeViewModel : MvxViewModel
         get => _menuVisible;
         set => SetProperty(ref _menuVisible, value);
     }
-
-    public FileGeneratorViewModel FileGeneratorVm
-    {
-        get => _fileGeneratorVm;
-        set => SetProperty(ref _fileGeneratorVm, value);
-    }
-
-    public SettingsViewModel SettingsVm
-    {
-        get => _settingsVm;
-        set => SetProperty(ref _settingsVm, value);
-    }
-
-    public FilamentEditorViewModel FilamentEditorVm
-    {
-        get => _filamentEditorVm;
-        set => SetProperty(ref _filamentEditorVm, value);
-    }
-
 
     public IMvxCommand OpenMenuCommand { get; set; }
 
