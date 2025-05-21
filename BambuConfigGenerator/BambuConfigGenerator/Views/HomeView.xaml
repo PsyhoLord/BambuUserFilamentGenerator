@@ -22,8 +22,30 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <ListView
+            Grid.Column="0"
+            Width="44"
+            Margin="0,40,0,0"
+            Padding="0"
+            HorizontalAlignment="Left"
+            BorderBrush="Transparent"
+            ItemsSource="{Binding MenuItems}"
+            SelectedIndex="{Binding SelectedMenuItemIndex}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox 
+                            Margin="2,0,0,0"
+                            Width="28"
+                            Height="40"
+                            Source="{Binding IconSource}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
         <Grid Grid.Column="0"
-              Width="200"
+              Width="205"
               HorizontalAlignment="Left"
               Background="{StaticResource BackgroundColorDarkBrush}"
               Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
@@ -32,9 +54,9 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <ListView
-                Width="200"
+                Width="207"
                 Margin="0,40,0,0"
-                Padding="0,10"
+                Padding="0"
                 HorizontalAlignment="Left"
                 BorderBrush="Transparent"
                 ItemsSource="{Binding MenuItems}"
@@ -43,7 +65,8 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <svgc:SvgViewbox 
-                                Width="40"
+                                Margin="2,0,0,0"
+                                Width="28"
                                 Height="40"
                                 Source="{Binding IconSource}" />
                             <Label
@@ -67,12 +90,13 @@
         <Button
             Grid.Row="0"
             Grid.Column="0"
-            Width="40"
+            Width="43"
             Height="40"
             Margin="0"
             VerticalAlignment="Top"
+            BorderBrush="Transparent"
             Command="{Binding OpenMenuCommand}">
-            <svgc:SvgViewbox Source="/Resources/hamburger-button-svgrepo-com.svg" />
+            <svgc:SvgViewbox Width="28" Source="/Resources/lunch_dining.svg" />
         </Button>
        
 

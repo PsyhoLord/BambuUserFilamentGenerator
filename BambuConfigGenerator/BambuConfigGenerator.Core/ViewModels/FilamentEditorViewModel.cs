@@ -103,8 +103,15 @@ public class FilamentEditorViewModel : MvxViewModel
 
     private void SaveFilamentConfig()
     {
-        _ioService.SaveFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath, FilamentParamsCollection);
-        MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        try
+        {
+            _ioService.SaveFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath, FilamentParamsCollection);
+            MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "Error!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async Task SelectOutputFolder()

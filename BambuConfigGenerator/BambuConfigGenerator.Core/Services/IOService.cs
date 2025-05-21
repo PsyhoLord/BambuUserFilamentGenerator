@@ -62,11 +62,11 @@ namespace BambuConfigGenerator.Core.Services
 
         public void SaveFilamentConfigValuePairs(string path, MvxObservableCollection<FilamentFileParamUIModel> filamentConfig)
         {
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            /*var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
             var newFileNameWithoutExtension = $"{fileNameWithoutExtension}_1";
             var extension = Path.GetExtension(path);
             var directory = Path.GetDirectoryName(path);
-            var newPath = Path.Combine($"{directory}", $"{newFileNameWithoutExtension}{extension}");
+            var newPath = Path.Combine($"{directory}", $"{newFileNameWithoutExtension}{extension}");*/
             
             if (string.IsNullOrWhiteSpace(path))
             {
@@ -85,7 +85,7 @@ namespace BambuConfigGenerator.Core.Services
                 .Replace("]\"", "]");
             var validatedModel = JsonConvert.DeserializeObject<FilamentModel>(jsonString);
 
-            File.WriteAllText(newPath, JsonConvert.SerializeObject(validatedModel, Formatting.Indented));
+            File.WriteAllText(path, JsonConvert.SerializeObject(validatedModel, Formatting.Indented));
         }
 
         public FilamentModel GetFilamentTemplateContent(string path)
