@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\refresh.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,6 +28,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\hamburger-button-svgrepo-com.svg" />
+    <Resource Include="Resources\refresh.svg" />
   </ItemGroup>
 
 </Project>

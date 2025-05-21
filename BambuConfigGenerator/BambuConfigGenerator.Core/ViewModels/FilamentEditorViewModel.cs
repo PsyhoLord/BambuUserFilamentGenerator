@@ -4,6 +4,7 @@ using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross.Commands;
 using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using System.Windows;
 
 namespace BambuConfigGenerator.Core.ViewModels;
 
@@ -25,6 +26,26 @@ public class FilamentEditorViewModel : MvxViewModel
         _ioService = ioService;
 
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
+        SaveCommand = new MvxCommand(SaveFilamentConfig);
+        OpenFolderCommand = new MvxCommand(OpenFolder);
+    }
+
+    private void OpenFolder()
+    {
+        var files = _fileFolderPickerService.GetListOfFilesInFolder(SelectedFolder, "*.json");
+        var fileList = new MvxObservableCollection<FileUIModel>();
+        foreach (var file in files)
+        {
+            fileList.Add(new FileUIModel
+            {
+                FileName = System.IO.Path.GetFileName(file),
+                FullFilePath = file
+            });
+        }
+
+        FileList = fileList;
+        SelectedFileIndex = 0;
+        ReadFilamentConfig();
     }
 
     public string SelectedFolder
@@ -66,26 +87,22 @@ public class FilamentEditorViewModel : MvxViewModel
         FilamentParamsCollection = filamentConfigUiModel;
     }
 
+    private void SaveFilamentConfig()
+    {
+        _ioService.SaveFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath, FilamentParamsCollection);
+        MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
     public IMvxAsyncCommand SelectFolderCommand { get; }
-    public IMvxAsyncCommand SaveCommand { get; }
+    public IMvxCommand SaveCommand { get; }
+
+    public IMvxCommand OpenFolderCommand { get; }
 
     private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
         SelectedFolder = path;
-
-        var files = _fileFolderPickerService.GetListOfFilesInFolder(SelectedFolder, "*.json");
-        var fileList = new MvxObservableCollection<FileUIModel>();
-        foreach (var file in files)
-        {
-            fileList.Add(new FileUIModel
-            {
-                FileName = System.IO.Path.GetFileName(file),
-                FullFilePath = file
-            });
-        }
-
-        FileList = fileList;
+        OpenFolder();
     }
 
     public MvxObservableCollection<FilamentFileParamUIModel> FilamentParamsCollection
@@ -93,5 +110,4 @@ public class FilamentEditorViewModel : MvxViewModel
         get => _paramsCollection;
         set => SetProperty(ref _paramsCollection, value);
     }
-
 }

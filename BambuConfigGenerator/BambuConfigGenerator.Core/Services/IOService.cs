@@ -1,5 +1,8 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using BambuConfigGenerator.Core.Models;
+using BambuConfigGenerator.Core.Models.UIModels;
+using MvvmCross.ViewModels;
 using Newtonsoft.Json;
 
 namespace BambuConfigGenerator.Core.Services
@@ -60,6 +63,34 @@ namespace BambuConfigGenerator.Core.Services
             }
 
             return result;
+        }
+
+        public void SaveFilamentConfigValuePairs(string path, MvxObservableCollection<FilamentFileParamUIModel> filamentConfig)
+        {
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(path);
+            var newFileNameWithoutExtension = $"{fileNameWithoutExtension}_1";
+            var extension = Path.GetExtension(path);
+            var directory = Path.GetDirectoryName(path);
+            var newPath = Path.Combine($"{directory}", $"{newFileNameWithoutExtension}{extension}");
+            
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentException("Path cannot be null or empty.", nameof(path));
+            }
+            if (filamentConfig == null || filamentConfig.Count == 0)
+            {
+                throw new ArgumentException("Filament configuration cannot be null or empty.", nameof(filamentConfig));
+            }
+            var dict = filamentConfig.ToDictionary(x => x.Key, x => x.Value);
+            var jsonString = JsonConvert.SerializeObject(dict, Formatting.Indented);
+            jsonString = jsonString
+                .Replace("\\\"", "\"")
+                .Replace("\\\\", "\\")
+                .Replace("\"[", "[")
+                .Replace("]\"", "]");
+            var validatedModel = JsonConvert.DeserializeObject<FilamentModel>(jsonString);
+
+            File.WriteAllText(newPath, JsonConvert.SerializeObject(validatedModel, Formatting.Indented));
         }
 
         public FilamentModel GetFilamentTemplateContent(string path)
