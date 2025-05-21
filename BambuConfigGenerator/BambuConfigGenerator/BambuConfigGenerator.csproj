@@ -9,16 +9,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\refresh.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MvvmCross" Version="9.3.1" />
     <PackageReference Include="MvvmCross.Platforms.Wpf" Version="9.3.1" />
+    <PackageReference Include="SharpVectors" Version="1.8.4.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BambuConfigGenerator.Core\BambuConfigGenerator.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\hamburger-button-svgrepo-com.svg" />
+    <Resource Include="Resources\refresh.svg" />
   </ItemGroup>
 
 </Project>

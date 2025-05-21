@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BambuConfigGenerator.Models
+namespace BambuConfigGenerator.Core.Models
 {
     public class FilamentModel
     {
