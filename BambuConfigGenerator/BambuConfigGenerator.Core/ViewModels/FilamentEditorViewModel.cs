@@ -88,6 +88,8 @@ public class FilamentEditorViewModel : MvxViewModel
 
     private void ReadFilamentConfig()
     {
+        if(SelectedFileIndex == -1)
+            return;
         var filamentConfig = _ioService.GetFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath);
         var filamentConfigUiModel = new MvxObservableCollection<FilamentFileParamUIModel>();
 
