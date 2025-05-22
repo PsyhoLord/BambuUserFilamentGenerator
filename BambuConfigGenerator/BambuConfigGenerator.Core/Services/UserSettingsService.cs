@@ -37,10 +37,22 @@ public class UserSettingsService : IUserSettingsService
         if (!string.IsNullOrEmpty(currentUserId))
         {
             CurrentUserId = currentUserId;
-            folderToBambuLabUserFilament = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                                           @"\BambuStudio\user\" +
-                                           CurrentUserId +
-                                           @"\filament\base";
+
+            var filamentDirectory = @$"{DefaultFolderToBambuLabUsers}\{currentUserId}\filament";
+
+            if (Directory.Exists(filamentDirectory))
+            {
+                var filamentBase = @$"{filamentDirectory}\base";
+                if (Directory.Exists(filamentBase))
+                {
+                    folderToBambuLabUserFilament = filamentBase;
+                }
+                else
+                {
+                    Directory.CreateDirectory(filamentBase);
+                    folderToBambuLabUserFilament = filamentBase;
+                }
+            }
         }
 
         UserSettings.UserId = currentUserId;
