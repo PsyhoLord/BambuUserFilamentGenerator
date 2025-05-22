@@ -33,6 +33,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -124,32 +125,111 @@
             <Label
                 Grid.Row="3"
                 Grid.Column="0"
-                Content="Temperatures:" />
-            <StackPanel
+                Content="Recommended temp:" />
+            <Grid
                 Grid.Row="3"
                 Grid.Column="1"
-                Orientation="Horizontal">
+                Margin="20,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Width="120"
+                    Margin="0"
+                    HorizontalContentAlignment="Center"
+                    Content="min" />
                 <TextBox
-                    Width="50"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="120"
+                    Margin="0"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     Text="{Binding RecommendedTemperatureMin}"
                     TextWrapping="Wrap" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="5,0,0,0"
+                    HorizontalContentAlignment="Center"
+                    Content="max" />
                 <TextBox
-                    Width="50"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="10,0,0,0"
                     HorizontalAlignment="Left"
                     HorizontalContentAlignment="Center"
                     Text="{Binding RecommendedTemperatureMax}"
                     TextWrapping="Wrap" />
-            </StackPanel>
+            </Grid>
 
-            <!--  Flow  -->
+            <!--  Recommended Temperature  -->
             <Label
                 Grid.Row="4"
                 Grid.Column="0"
+                Content="Nozzle temp:" />
+            <Grid
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="20,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Width="120"
+                    Margin="0"
+                    HorizontalContentAlignment="Center"
+                    Content="Init layer" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Width="120"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding NozzleTemperatureInitialLayer}"
+                    TextWrapping="Wrap" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="5,0,0,0"
+                    HorizontalContentAlignment="Center"
+                    Content="Other layers" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="120"
+                    Margin="10,0,0,10"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding NozzleTemperatureOtherLayers}"
+                    TextWrapping="Wrap" />
+            </Grid>
+
+            <!--  Flow  -->
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
                 Content="Filament Flow Ratio:" />
             <TextBox
-                Grid.Row="4"
+                Grid.Row="5"
                 Grid.Column="1"
                 Width="120"
                 HorizontalAlignment="Left"
@@ -160,18 +240,18 @@
 
             <!--  Template  -->
             <Label
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="0"
                 Content="Template Path:" />
             <TextBox
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Text="{Binding FolderWithTemplatesPath}"
                 TextWrapping="Wrap" />
             <StackPanel
-                Grid.Row="5"
+                Grid.Row="6"
                 Grid.Column="2"
                 Orientation="Horizontal">
                 <Button Command="{Binding SelectFolderWithTemplates}" Content="Select file" />
@@ -187,18 +267,18 @@
 
             <!--  OUTPUT  -->
             <Label
-                Grid.Row="6"
+                Grid.Row="7"
                 Grid.Column="0"
                 Content="Output Folder:" />
             <TextBox
-                Grid.Row="6"
+                Grid.Row="7"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Text="{Binding SelectedFolder}"
                 TextWrapping="Wrap" />
             <StackPanel
-                Grid.Row="6"
+                Grid.Row="7"
                 Grid.Column="2"
                 Orientation="Horizontal">
                 <Button Command="{Binding SelectFolderCommand}" Content="Select Folder" />
@@ -215,7 +295,7 @@
 
             <!--  Printer & nozzle  -->
             <Grid
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Margin="10,0,0,0">

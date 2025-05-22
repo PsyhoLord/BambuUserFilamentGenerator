@@ -90,6 +90,9 @@ namespace BambuConfigGenerator.Core.Services
                     // Apply corrections:
                     template.NozzleTemperatureRangeLow = [$"{Corrections.RecommendedTemperatureMin:D}"];
                     template.NozzleTemperatureRangeHigh = [$"{Corrections.RecommendedTemperatureMax:D}"];
+                    template.NozzleTemperatureInitialLayer = [$"{Corrections.NozzleTemperatureInitialLayer:D}"];
+                    template.NozzleTemperature = [$"{Corrections.NozzleTemperatureOtherLayers:D}"];
+
                     template.FilamentFlowRatio = [Corrections.FilamentFlowRatio.ToString("F2", CultureInfo.InvariantCulture)];
 
                     // Serialize the template with custom options

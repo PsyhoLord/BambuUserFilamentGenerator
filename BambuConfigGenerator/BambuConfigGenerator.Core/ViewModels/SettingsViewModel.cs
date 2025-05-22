@@ -18,6 +18,7 @@ public class SettingsViewModel : MvxViewModel
     private string _folderToBambuLabUsers;
     private string _folderToBambuLabUserFilaments;
 
+    private UserSettingsModel userSettings;
     public SettingsViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
         IMvxNavigationService navigationService, IUserSettingsService userSettingsService)
@@ -80,7 +81,7 @@ public class SettingsViewModel : MvxViewModel
 
     private void SaveUserSettings()
     {
-        var userSettings = new UserSettingsModel
+        userSettings = new UserSettingsModel
         {
             UserId = UserId,
             FolderToBambuLabApp = FolderToBambuLabApp,
@@ -94,7 +95,7 @@ public class SettingsViewModel : MvxViewModel
 
     private void Init()
     {
-        var userSettings = _userSettingsService.UserSettings;
+        userSettings = _userSettingsService.UserSettings;
 
         UserId = userSettings.UserId;
         FolderToBambuLabApp = userSettings.FolderToBambuLabApp;
@@ -102,7 +103,7 @@ public class SettingsViewModel : MvxViewModel
         FolderToBambuLabUsers = userSettings.FolderToBambuLabUsers;
         FolderToBambuLabUserFilaments = userSettings.FolderToBambuLabUserFilaments;
     }
-
+    
     public string UserId
     {
         get => _userId;

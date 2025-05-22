@@ -18,6 +18,10 @@ public class CorrectionParametersModel
 
     public int RecommendedTemperatureMax { get; set; }
 
+    public int NozzleTemperatureInitialLayer { get; set; }
+    
+    public int NozzleTemperatureOtherLayers { get; set; }
+
     public double FilamentFlowRatio { get; set; }
 
     public string FolderWithTemplatesPath { get; set; } 

@@ -30,6 +30,8 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<PrinterUIModel> _printers;
     private ObservableCollection<NozzleUIModel> _nozzles;
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
+    private int _nozzleTemperatureInitialLayer;
+    private int _nozzleTemperatureOtherLayers;
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
@@ -105,6 +107,8 @@ public class FileGeneratorViewModel : MvxViewModel
         FilamentFlowRatio = configuration.FilamentFlowRatio;
         FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
         SelectedFolder = configuration.SelectedOutputFolderPath;
+        NozzleTemperatureInitialLayer = configuration.NozzleTemperatureInitialLayer;
+        NozzleTemperatureOtherLayers = configuration.NozzleTemperatureOtherLayers;
 
         _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
         if (!_templateFolderAnalyserService.IsValid)
@@ -170,7 +174,9 @@ public class FileGeneratorViewModel : MvxViewModel
             SelectedNozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList(),
             SelectedPrinters = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList(),
             FolderWithTemplatesPath = FolderWithTemplatesPath,
-            SelectedOutputFolderPath = SelectedFolder
+            SelectedOutputFolderPath = SelectedFolder,
+            NozzleTemperatureInitialLayer = NozzleTemperatureInitialLayer,
+            NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers
         };
 
         filament.SetParametersForCorrections(corrections);
@@ -212,6 +218,18 @@ public class FileGeneratorViewModel : MvxViewModel
     {
         get => _recommendedTemperatureMax;
         set => SetProperty(ref _recommendedTemperatureMax, value);
+    }
+
+    public int NozzleTemperatureInitialLayer
+    {
+        get => _nozzleTemperatureInitialLayer;
+        set => SetProperty(ref _nozzleTemperatureInitialLayer, value);
+    }
+
+    public int NozzleTemperatureOtherLayers
+    {
+        get => _nozzleTemperatureOtherLayers;
+        set => SetProperty(ref _nozzleTemperatureOtherLayers, value);
     }
 
     public double FilamentFlowRatio
