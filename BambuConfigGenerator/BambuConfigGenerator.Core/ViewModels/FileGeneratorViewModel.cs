@@ -9,6 +9,7 @@ using MvvmCross.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
+using BambuConfigGenerator.Core.Services;
 
 namespace BambuConfigGenerator.Core.ViewModels;
 
@@ -161,6 +162,12 @@ public class FileGeneratorViewModel : MvxViewModel
 
     private void Generate()
     {
+        var excelService = new MsOfficeService();
+
+        excelService.ReadDataFromExcel();
+
+        return;
+
         var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
         var corrections = new CorrectionParametersModel

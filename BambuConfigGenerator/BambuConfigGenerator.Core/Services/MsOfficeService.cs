@@ -1,11 +1,12 @@
-﻿using BambuConfigGenerator.Core.Models;
+﻿using System.Reflection;
+using BambuConfigGenerator.Core.Models;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace BambuConfigGenerator.Core.Services;
 
-public class MsOfficeService
+public class MsOfficeService // : IDisposable
 {
-    private string _filamentPresetFilePath = "FilamentPreset.xlsx";
+    private string _filamentPresetFilePath = "Copy of FilamentPresets.xlsx";
 
     public CorrectionParametersModel ReadDataFromExcel()
     {
@@ -16,7 +17,7 @@ public class MsOfficeService
 
     public void ProcessWorkbook()
     {
-        string file = @"C:\Users\Chris\Desktop\TestSheet.xls";
+        string file = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentPresetFilePath}";
         Console.WriteLine(file);
 
         Excel.Application excel = null;
@@ -24,33 +25,25 @@ public class MsOfficeService
 
         try
         {
+
             excel = new Excel.Application();
 
             wkb = OpenBook(excel, file, false, true, false);
 
-            Excel.Worksheet sheet = wkb.Sheets["PLA"] as Excel.Worksheet;
-
-            Excel.Range range = null;
-
-            // Excel.Range range1 = sheet.Range["A1:A5", Missing.Value];
-            Excel.Range range1 = sheet.Range["A1", "A5"];
-
-            //if (range1 != null)
-            //    foreach (Excel.Range r in range1)
-            //    {
-            //        string user = r.Text;
-            //        string value = r.Value2;
-            //    }
-
-            /*if (sheet != null)
-                range = sheet.get_Range("A1", Missing.Value);
-
-            string A1 = String.Empty;
-
+            /*Excel.Worksheet sheet = wkb.Sheets["PLA"] as Excel.Worksheet;
+            Excel.Range range = sheet.Range["A1", "J1"];
+            
             if (range != null)
-                A1 = range.Text.ToString();*/
+                foreach (Excel.Range r in range)
+                {
+                    var x = r.Value;
+                    Console.WriteLine(r.Text);
+                    Console.WriteLine(r.Value);
+                }
 
-            Console.WriteLine("A1 value: {0}", A1);
+            ReleaseRCM(range);*/
+
+            ReadPlaWorkSheet(wkb);
         }
         catch (Exception ex)
         {
@@ -64,7 +57,69 @@ public class MsOfficeService
 
             if (excel != null)
                 ReleaseRCM(excel);
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
+    }
+
+    private void ReadPlaWorkSheet(Excel.Workbook workbook)
+    {
+        Excel.Worksheet sheet = workbook.Sheets["PLA"] as Excel.Worksheet;
+
+        var listOfCorrections = new List<ExcelFilamentRowDataModel>();
+
+        var startIndex = 2;
+        var lineIndex = 2;
+
+        do
+        {
+            var range = sheet.Range[$"A{lineIndex}", $"J{lineIndex}"];
+
+            try
+            {
+                if (range != null)
+                {
+                    var row = new ExcelFilamentRowDataModel
+                    {
+                        Brand = range.Cells[1, 1].Value,
+                        Type = range.Cells[1, 2].Value,
+                        Serial = range.Cells[1, 3].Value,
+                        RecommendedTempMin = range.Cells[1, 4].Value,
+                        RecommendedTempMax = range.Cells[1, 5].Value,
+                        NozzleInitialLayerTemp = range.Cells[1, 6].Value,
+                        NozzleLayersTemp = range.Cells[1, 7].Value,
+                        FFR = range.Cells[1, 8].Value,
+                        K = range.Cells[1, 9].Value
+                        //Brand = range[0].Value,
+                        //Type = range[1].Value,
+                        //Serial = range[2].Value,
+                        //RecommendedTempMin = range[3].Value,
+                        //RecommendedTempMax = range[4].Value,
+                        //NozzleInitialLayerTemp = range[5].Value,
+                        //NozzleLayersTemp = range[6].Value,
+                        //FFR = range[7].Value,
+                        //K = range[8].Value
+                    };
+                    listOfCorrections.Add(row);
+                    lineIndex++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            finally
+            {
+                ReleaseRCM(range);
+            }
+
+            lineIndex++;
+        } while (lineIndex < 2);
     }
 
     public static Excel.Workbook OpenBook(Excel.Application excelInstance, string fileName, bool readOnly, bool editable,
