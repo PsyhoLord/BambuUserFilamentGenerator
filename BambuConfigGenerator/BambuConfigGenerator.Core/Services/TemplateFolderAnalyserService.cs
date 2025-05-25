@@ -3,6 +3,7 @@ using System.IO;
 using BambuConfigGenerator.Core.Models.UIModels;
 using BambuConfigGenerator.Core.Services.Interfaces;
 using Path = System.IO.Path;
+using Enums = BambuConfigGenerator.Contracts.Enums; // Assuming Enums is in the Contracts namespace
 
 namespace BambuConfigGenerator.Core.Services;
 

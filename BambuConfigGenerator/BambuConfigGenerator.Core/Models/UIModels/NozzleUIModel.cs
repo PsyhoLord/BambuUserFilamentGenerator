@@ -1,4 +1,4 @@
-﻿using BambuConfigGenerator.Core.Enums;
+﻿using BambuConfigGenerator.Contracts.Enums;
 
 namespace BambuConfigGenerator.Core.Models.UIModels;
 

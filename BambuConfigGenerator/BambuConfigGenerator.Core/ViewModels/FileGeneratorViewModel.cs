@@ -1,5 +1,4 @@
-﻿using BambuConfigGenerator.Core.Models;
-using BambuConfigGenerator.Core.Models.UIModels;
+﻿using BambuConfigGenerator.Core.Models.UIModels;
 using BambuConfigGenerator.Core.Services.Interfaces;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross;
@@ -9,7 +8,8 @@ using MvvmCross.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
-using BambuConfigGenerator.Core.Services;
+using BambuConfigGenerator.Contracts;
+using Enums = BambuConfigGenerator.Contracts.Enums; // Assuming Enums is in the Contracts namespace
 
 namespace BambuConfigGenerator.Core.ViewModels;
 
@@ -162,12 +162,6 @@ public class FileGeneratorViewModel : MvxViewModel
 
     private void Generate()
     {
-        var excelService = new MsOfficeService();
-
-        excelService.ReadDataFromExcel();
-
-        return;
-
         var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
         var corrections = new CorrectionParametersModel

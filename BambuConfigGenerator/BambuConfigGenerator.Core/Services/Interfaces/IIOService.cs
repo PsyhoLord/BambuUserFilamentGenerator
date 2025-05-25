@@ -1,4 +1,5 @@
-﻿using BambuConfigGenerator.Core.Models;
+﻿using BambuConfigGenerator.Contracts;
+using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
 using MvvmCross.ViewModels;
 

@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.IO;
-using BambuConfigGenerator.Core.Enums;
-using BambuConfigGenerator.Core.Models;
+using BambuConfigGenerator.Contracts;
+using BambuConfigGenerator.Contracts.Enums;
 using BambuConfigGenerator.Core.Services.Interfaces;
 
 namespace BambuConfigGenerator.Core.Services

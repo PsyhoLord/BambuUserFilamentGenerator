@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BambuConfigGenerator", "Bam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BambuConfigGenerator.Core", "BambuConfigGenerator.Core\BambuConfigGenerator.Core.csproj", "{15CE1092-5899-4FA8-956B-B46C002853F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BambuConfigGenerator.ExcelToJsonGenerator", "BambuConfigGenerator.ExcelToJsonGenerator\BambuConfigGenerator.ExcelToJsonGenerator.csproj", "{882D5FCC-3DEA-465C-B15E-D309AC98FD5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BambuConfigGenerator.Contracts", "BambuConfigGenerator.Contracts\BambuConfigGenerator.Contracts.csproj", "{959E598C-3DCB-4A1D-AA2D-FB6C9988B8A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{15CE1092-5899-4FA8-956B-B46C002853F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15CE1092-5899-4FA8-956B-B46C002853F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15CE1092-5899-4FA8-956B-B46C002853F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882D5FCC-3DEA-465C-B15E-D309AC98FD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882D5FCC-3DEA-465C-B15E-D309AC98FD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882D5FCC-3DEA-465C-B15E-D309AC98FD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882D5FCC-3DEA-465C-B15E-D309AC98FD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{959E598C-3DCB-4A1D-AA2D-FB6C9988B8A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{959E598C-3DCB-4A1D-AA2D-FB6C9988B8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{959E598C-3DCB-4A1D-AA2D-FB6C9988B8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{959E598C-3DCB-4A1D-AA2D-FB6C9988B8A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

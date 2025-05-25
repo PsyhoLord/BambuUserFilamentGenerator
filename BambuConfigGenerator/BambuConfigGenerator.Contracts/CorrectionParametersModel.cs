@@ -1,6 +1,6 @@
-﻿using BambuConfigGenerator.Core.Enums;
+﻿using BambuConfigGenerator.Contracts.Enums;
 
-namespace BambuConfigGenerator.Core.Models;
+namespace BambuConfigGenerator.Contracts;
 
 public class CorrectionParametersModel
 {

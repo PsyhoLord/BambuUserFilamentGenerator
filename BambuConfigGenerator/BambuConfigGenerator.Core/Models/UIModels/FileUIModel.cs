@@ -1,6 +1,4 @@
-﻿using MvvmCross.ViewModels;
-
-namespace BambuConfigGenerator.Core.Models.UIModels;
+﻿namespace BambuConfigGenerator.Core.Models.UIModels;
 
 public class FileUIModel
 {

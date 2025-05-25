@@ -1,4 +1,4 @@
-﻿namespace BambuConfigGenerator.Core.Enums;
+﻿namespace BambuConfigGenerator.Contracts.Enums;
 
 // ABS
 // ABS-GF

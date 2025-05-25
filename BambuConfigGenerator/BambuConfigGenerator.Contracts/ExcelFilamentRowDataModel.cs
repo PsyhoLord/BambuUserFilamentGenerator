@@ -1,4 +1,4 @@
-﻿namespace BambuConfigGenerator.Core.Models;
+﻿namespace BambuConfigGenerator.Contracts;
 
 public class ExcelFilamentRowDataModel
 {
@@ -8,10 +8,10 @@ public class ExcelFilamentRowDataModel
     public string Type { get; set; }
 
     public string Serial { get; set; }
-    public int RecommendedTempMin { get; set; }
-    public int RecommendedTempMax { get; set; }
-    public int NozzleInitialLayerTemp { get; set; }
-    public int NozzleLayersTemp { get; set; }
+    public double RecommendedTempMin { get; set; }
+    public double RecommendedTempMax { get; set; }
+    public double NozzleInitialLayerTemp { get; set; }
+    public double NozzleLayersTemp { get; set; }
     public double FFR { get; set; }
     public double K { get; set; }
 }

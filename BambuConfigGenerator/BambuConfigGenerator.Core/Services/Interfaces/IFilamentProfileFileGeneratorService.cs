@@ -1,5 +1,5 @@
-﻿using BambuConfigGenerator.Core.Enums;
-using BambuConfigGenerator.Core.Models;
+﻿using BambuConfigGenerator.Contracts;
+using BambuConfigGenerator.Contracts.Enums;
 
 namespace BambuConfigGenerator.Core.Services.Interfaces;
 
