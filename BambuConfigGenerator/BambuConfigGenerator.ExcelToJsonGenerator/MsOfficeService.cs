@@ -18,7 +18,7 @@ public class MsOfficeService // : IDisposable
 
     public void ProcessWorkbook()
     {
-        string file = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentPresetFilePath}";
+        var file = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentPresetFilePath}";
         Console.WriteLine(file);
 
         Application excel = null;
@@ -68,22 +68,13 @@ public class MsOfficeService // : IDisposable
             do
             {
                 range = sheet.Range[$"A{y}:J{y}", Missing.Value];
+                if (range.Cells[1, 2].Value == null)
+                {
+                    dataPresent = false;
+                }
+
                 if (dataPresent)
                 {
-                    // Debug coode:
-                    //for (int x = 2; x <= 10; x++)
-                    //{
-                    //    var data = range.Cells[1, x].Value;
-                    //    if (data == null)
-                    //    {
-                    //        dataPresent = false;
-                    //        break;
-                    //    }
-
-                    //    var objectType = range.Cells[1, x].Value.GetType();
-                    //    Console.WriteLine($"{objectType} - {data}");
-                    //}
-
                     var row = new ExcelFilamentRowDataModel
                     {
                         Brand = range.Cells[1, 2].Value,
