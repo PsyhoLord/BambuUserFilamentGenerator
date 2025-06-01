@@ -31,8 +31,8 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<PrinterUIModel> _printers;
     private ObservableCollection<NozzleUIModel> _nozzles;
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
-    private int _nozzleTemperatureInitialLayer;
-    private int _nozzleTemperatureOtherLayers;
+    private int _nozzleTemperatureInitialLayer = 220;
+    private int _nozzleTemperatureOtherLayers = 220;
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,

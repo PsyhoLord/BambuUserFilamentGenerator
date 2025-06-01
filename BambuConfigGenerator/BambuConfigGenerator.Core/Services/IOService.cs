@@ -33,9 +33,7 @@ namespace BambuConfigGenerator.Core.Services
         {
             return LoadModelFromFile<CorrectionParametersModel>(UserCorrectionsFileName);
         }
-
         
-
         public Dictionary<string, string> GetFilamentConfigValuePairs(string path)
         {
             if (string.IsNullOrWhiteSpace(path))
