@@ -119,10 +119,6 @@ public class PresetGeneratorViewModel : MvxViewModel
         {
             MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        else
-        {
-            MessageBox.Show("FAIL!!! Check nozzles and printers", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
     }
 
     private void GenerateSinglePreset()
@@ -131,52 +127,58 @@ public class PresetGeneratorViewModel : MvxViewModel
         {
             MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        else
-        {
-            MessageBox.Show("FAIL!!! Check nozzles and printers", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
     }
 
     private bool GenerateSinglePreset(IEnumerable<PresetUIModel> presets)
     {
-        var filamentGeneratorService = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
-
-        var nozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList();
-        var printers = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList();
-
-        if (nozzles == null || nozzles.Count == 0)
-            return false;
-
-        if (printers == null || printers.Count == 0)
-            return false;
-
-        foreach (var presetUiModel in presets)
+        try
         {
-            var corrections = new CorrectionParametersModel
+            var filamentGeneratorService = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
+
+            var nozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList();
+            var printers = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList();
+
+            if (nozzles == null || nozzles.Count == 0)
+                MessageBox.Show("Check nozzles and printers", "FAIL!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+            if (printers == null || printers.Count == 0)
+                MessageBox.Show("Check nozzles and printers", "FAIL!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+            foreach (var presetUiModel in presets)
             {
-                Brand = presetUiModel.Brand,
-                Type = presetUiModel.Type,
-                Serial = presetUiModel.Serial,
-                RecommendedTemperatureMin = (int)presetUiModel.RecommendedTempMin,
-                RecommendedTemperatureMax = (int)presetUiModel.RecommendedTempMax,
-                NozzleTemperatureInitialLayer = (int)presetUiModel.NozzleInitialLayerTemp,
-                NozzleTemperatureOtherLayers = (int)presetUiModel.NozzleLayersTemp,
-                FilamentFlowRatio = presetUiModel.Ffr,
-                SelectedNozzles = nozzles,
-                SelectedPrinters = printers,
-                FolderWithTemplatesPath = FolderWithTemplatesPath,
-                SelectedOutputFolderPath = OutputFolder
+                var corrections = new CorrectionParametersModel
+                {
+                    Brand = presetUiModel.Brand,
+                    Type = presetUiModel.Type,
+                    Serial = presetUiModel.Serial,
+                    RecommendedTemperatureMin = (int)presetUiModel.RecommendedTempMin,
+                    RecommendedTemperatureMax = (int)presetUiModel.RecommendedTempMax,
+                    NozzleTemperatureInitialLayer = (int)presetUiModel.NozzleInitialLayerTemp,
+                    NozzleTemperatureOtherLayers = (int)presetUiModel.NozzleLayersTemp,
+                    FilamentFlowRatio = presetUiModel.Ffr,
+                    SelectedNozzles = nozzles,
+                    SelectedPrinters = printers,
+                    FolderWithTemplatesPath = FolderWithTemplatesPath,
+                    SelectedOutputFolderPath = OutputFolder
 
-            };
+                };
 
-            filamentGeneratorService.SetParametersForCorrections(corrections);
+                filamentGeneratorService.SetParametersForCorrections(corrections);
 
-            filamentGeneratorService.GenerateOutputFiles();
+                filamentGeneratorService.GenerateOutputFiles();
 
-            _ioService.SaveCorrections(corrections);
+                _ioService.SaveCorrections(corrections);
+            }
+
+            return true;
         }
-
-        return true;
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "FAIL!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+            return false;
+        }
     }
 
     private void ReadAvailablePresets()

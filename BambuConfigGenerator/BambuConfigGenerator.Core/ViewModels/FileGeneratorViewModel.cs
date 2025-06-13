@@ -162,31 +162,38 @@ public class FileGeneratorViewModel : MvxViewModel
 
     private void Generate()
     {
-        var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
-
-        var corrections = new CorrectionParametersModel
+        try
         {
-            Brand = FilamentBrand,
-            Type = SelectedFilamentType.FilamentType,
-            Serial = Serial,
-            RecommendedTemperatureMin = RecommendedTemperatureMin,
-            RecommendedTemperatureMax = RecommendedTemperatureMax,
-            FilamentFlowRatio = FilamentFlowRatio,
-            SelectedNozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList(),
-            SelectedPrinters = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList(),
-            FolderWithTemplatesPath = FolderWithTemplatesPath,
-            SelectedOutputFolderPath = SelectedFolder,
-            NozzleTemperatureInitialLayer = NozzleTemperatureInitialLayer,
-            NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers
-        };
+            var filament = Mvx.IoCProvider.Resolve<IFilamentProfileFileGeneratorService>();
 
-        filament.SetParametersForCorrections(corrections);
+            var corrections = new CorrectionParametersModel
+            {
+                Brand = FilamentBrand,
+                Type = SelectedFilamentType.FilamentType,
+                Serial = Serial,
+                RecommendedTemperatureMin = RecommendedTemperatureMin,
+                RecommendedTemperatureMax = RecommendedTemperatureMax,
+                FilamentFlowRatio = FilamentFlowRatio,
+                SelectedNozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList(),
+                SelectedPrinters = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList(),
+                FolderWithTemplatesPath = FolderWithTemplatesPath,
+                SelectedOutputFolderPath = SelectedFolder,
+                NozzleTemperatureInitialLayer = NozzleTemperatureInitialLayer,
+                NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers
+            };
 
-        filament.GenerateOutputFiles();
+            filament.SetParametersForCorrections(corrections);
 
-        _ioService.SaveCorrections(corrections);
+            filament.GenerateOutputFiles();
 
-        MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+            _ioService.SaveCorrections(corrections);
+
+            MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "Fail!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 
     #region Properties
