@@ -172,7 +172,7 @@
                     TextWrapping="Wrap" />
             </Grid>
 
-            <!--  Recommended Temperature  -->
+            <!--  Nozzle Temperature  -->
             <Label
                 Grid.Row="4"
                 Grid.Column="0"

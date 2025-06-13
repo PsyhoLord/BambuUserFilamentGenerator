@@ -7,4 +7,6 @@ public class FilamentTypeUIModel
     public string Name { get; set; }
 
     public FilamentTypes FilamentType { get; set; }
+
+    public bool IsSelected { get; set; }
 }

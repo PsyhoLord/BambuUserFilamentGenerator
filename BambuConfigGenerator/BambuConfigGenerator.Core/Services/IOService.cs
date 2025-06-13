@@ -33,7 +33,16 @@ namespace BambuConfigGenerator.Core.Services
         {
             return LoadModelFromFile<CorrectionParametersModel>(UserCorrectionsFileName);
         }
-        
+
+        public List<PresetParametersModel> LoadPresets()
+        {
+            var _filamentOutputFilePath = "FilamentPresets.json";
+            var outputFilePath = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentOutputFilePath}";
+
+            var presets = LoadModelFromFile<List<PresetParametersModel>>(outputFilePath);
+            return presets;
+        }
+
         public Dictionary<string, string> GetFilamentConfigValuePairs(string path)
         {
             if (string.IsNullOrWhiteSpace(path))

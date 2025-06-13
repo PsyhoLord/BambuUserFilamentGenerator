@@ -1,6 +1,7 @@
 ﻿using BambuConfigGenerator.Contracts;
 using Microsoft.Office.Interop.Excel;
 using System.Reflection;
+using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace BambuConfigGenerator.ExcelToJsonGenerator;
@@ -8,6 +9,7 @@ namespace BambuConfigGenerator.ExcelToJsonGenerator;
 public class MsOfficeService // : IDisposable
 {
     private string _filamentPresetFilePath = "Copy of FilamentPresets.xlsx";
+    private string _filamentOutputFilePath = "FilamentPresets.json";
 
     public CorrectionParametersModel ReadDataFromExcel()
     {
@@ -18,8 +20,9 @@ public class MsOfficeService // : IDisposable
 
     public void ProcessWorkbook()
     {
-        var file = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentPresetFilePath}";
-        Console.WriteLine(file);
+        var inputFilePath = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentPresetFilePath}";
+        var outputFilePath = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentOutputFilePath}";
+        Console.WriteLine(inputFilePath);
 
         Application excel = null;
         Workbook wkb = null;
@@ -29,10 +32,17 @@ public class MsOfficeService // : IDisposable
 
             excel = new Application();
 
-            var workbook = OpenBook(excel, file, false, true, false);
+            var workbook = OpenBook(excel, inputFilePath, false, true, false);
 
             var plaCorrections = ReadCorrectionsFromExcel(workbook, "PLA");
             var petgCorrections = ReadCorrectionsFromExcel(workbook, "PETG");
+
+            var allCorrections = new List<ExcelFilamentRowDataModel>();
+            allCorrections.AddRange(plaCorrections);
+            allCorrections.AddRange(petgCorrections);
+
+            var jsonFileContent = JsonConvert.SerializeObject(allCorrections, Formatting.Indented);
+            File.WriteAllText(outputFilePath, jsonFileContent);
         }
         catch (Exception ex)
         {

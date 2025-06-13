@@ -34,6 +34,9 @@ public class HomeViewModel : MvxViewModel
         var filamentEditorVm = new FilamentEditorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
             navigationService, userSettingsService);
 
+        var presetGeneratorVm = new PresetGeneratorViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
+            navigationService, userSettingsService);
+
         var settingsVm = new SettingsViewModel(fileFolderPickerService, ioService, templateFolderAnalyserService,
             navigationService, userSettingsService);
 
@@ -41,6 +44,7 @@ public class HomeViewModel : MvxViewModel
         [
             new MenuItem { Name = "Filament Generator", ViewModel = fileGeneratorVm, IsVisible = true, IconSource = "/Resources/border_color_24dp.svg"},
             new MenuItem { Name = "Filament Editor", ViewModel = filamentEditorVm, IconSource = "/Resources/app_registration_24dp.svg" },
+            new MenuItem { Name = "Filament Preset Generator", ViewModel = presetGeneratorVm, IconSource = "/Resources/format_paint_24dp.svg" },
             new MenuItem { Name = "Settings", ViewModel = settingsVm, IconSource = "/Resources/settings_24dp.svg" }
         ];
 

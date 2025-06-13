@@ -129,12 +129,23 @@
             Visibility="{Binding MenuItems[2].IsVisible, Converter={StaticResource Visibility}}">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
+                    <local:PresetGenerator />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding MenuItems[3].ViewModel}"
+            Visibility="{Binding MenuItems[3].IsVisible, Converter={StaticResource Visibility}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
                     <local:SettingsView />
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        
+
 
     </Grid>
 </views:MvxWpfView>

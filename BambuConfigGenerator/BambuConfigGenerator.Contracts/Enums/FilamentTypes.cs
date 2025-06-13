@@ -65,5 +65,6 @@ public enum FilamentTypes
     PHA,
     PP_CF,
     PP,
-    PP_GF
+    PP_GF,
+    Unknown // This can be used for any unrecognized or custom filament types
 }

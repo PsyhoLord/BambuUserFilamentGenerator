@@ -14,6 +14,8 @@ public interface IIOService
     public void SaveCorrections(CorrectionParametersModel correction);
     public CorrectionParametersModel? LoadCorrections();
 
+    public List<PresetParametersModel> LoadPresets();
+
     public Dictionary<string, string> GetFilamentConfigValuePairs(string path);
 
     public void SaveFilamentConfigValuePairs(string path, MvxObservableCollection<FilamentFileParamUIModel> filamentConfig);
