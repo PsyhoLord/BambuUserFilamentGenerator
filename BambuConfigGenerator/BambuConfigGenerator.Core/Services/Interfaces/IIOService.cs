@@ -14,7 +14,7 @@ public interface IIOService
     public void SaveCorrections(CorrectionParametersModel correction);
     public CorrectionParametersModel? LoadCorrections();
 
-    public List<PresetParametersModel> LoadPresets();
+    public List<PresetParametersModel> LoadPresets(string path);
 
     public Dictionary<string, string> GetFilamentConfigValuePairs(string path);
 

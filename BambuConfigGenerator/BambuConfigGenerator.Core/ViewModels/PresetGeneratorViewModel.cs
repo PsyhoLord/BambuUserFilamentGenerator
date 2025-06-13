@@ -33,6 +33,7 @@ public class PresetGeneratorViewModel : MvxViewModel
     private string _outputFolder;
     private ObservableCollection<FilamentFileParamUIModel> _presetParamsList;
     private List<PresetUIModel> _allPresetsList;
+    private string _folderWithPresetsPath;
 
     public PresetGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
@@ -47,8 +48,16 @@ public class PresetGeneratorViewModel : MvxViewModel
         GenerateAllPresetsCommand = new MvxCommand(GenerateAllPresets);
         SelectFolderWithTemplates = new MvxAsyncCommand(SelectFolderWithTemplatesPath);
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
+        SelectFolderWithPresets = new MvxAsyncCommand(async () =>
+        {
+            var path = await _fileFolderPickerService.SelectFile(string.Empty);
+            if (string.IsNullOrEmpty(path))
+                return;
+            FolderWithPresetsPath = path;
+        });
         OpenFolderWithTemplatesCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderWithTemplatesPath));
         OpenFolderOutputCommand = new MvxCommand(() => Process.Start("explorer.exe", OutputFolder));
+        OpenFolderWithPresetsCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderWithPresetsPath));
 
         var configuration = _ioService.LoadCorrections();
 
@@ -183,7 +192,7 @@ public class PresetGeneratorViewModel : MvxViewModel
 
     private void ReadAvailablePresets()
     {
-        var allPresetsModelsList = _ioService.LoadPresets();
+        var allPresetsModelsList = _ioService.LoadPresets(FolderWithPresetsPath);
 
         _allPresetsList = allPresetsModelsList.Select(p => new PresetUIModel
         {
@@ -221,11 +230,13 @@ public class PresetGeneratorViewModel : MvxViewModel
     public IMvxCommand GenerateAllPresetsCommand { get; set; }
 
     public IMvxAsyncCommand SelectFolderWithTemplates { get; }
+    public IMvxAsyncCommand SelectFolderWithPresets { get; }
 
     public IMvxAsyncCommand SelectFolderCommand { get; }
 
     public IMvxCommand OpenFolderWithTemplatesCommand { get; }
     public IMvxCommand OpenFolderOutputCommand { get; }
+    public IMvxCommand OpenFolderWithPresetsCommand { get; }
 
     public ObservableCollection<PrinterUIModel> Printers
     {
@@ -365,5 +376,11 @@ public class PresetGeneratorViewModel : MvxViewModel
     {
         get => _outputFolder;
         set => SetProperty(ref _outputFolder, value);
+    }
+
+    public string FolderWithPresetsPath
+    {
+        get => _folderWithPresetsPath;
+        set => SetProperty(ref _folderWithPresetsPath, value);
     }
 }

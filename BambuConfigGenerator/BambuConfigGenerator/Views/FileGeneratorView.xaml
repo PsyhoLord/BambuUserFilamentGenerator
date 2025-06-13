@@ -254,7 +254,7 @@
                 Grid.Row="6"
                 Grid.Column="2"
                 Orientation="Horizontal">
-                <Button Command="{Binding SelectFolderWithTemplates}" Content="Select file" />
+                <Button Command="{Binding SelectFolderWithTemplates}" Content="Select folder" />
                 <Button
                     Width="40"
                     Height="40"

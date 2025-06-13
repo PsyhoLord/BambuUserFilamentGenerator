@@ -34,12 +34,12 @@ namespace BambuConfigGenerator.Core.Services
             return LoadModelFromFile<CorrectionParametersModel>(UserCorrectionsFileName);
         }
 
-        public List<PresetParametersModel> LoadPresets()
+        public List<PresetParametersModel> LoadPresets(string path)
         {
-            var _filamentOutputFilePath = "FilamentPresets.json";
-            var outputFilePath = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentOutputFilePath}";
+            //var _filamentOutputFilePath = "FilamentPresets.json";
+            //var outputFilePath = @$"C:\Repos\BambuUserFilamentGenerator\Resources\{_filamentOutputFilePath}";
 
-            var presets = LoadModelFromFile<List<PresetParametersModel>>(outputFilePath);
+            var presets = LoadModelFromFile<List<PresetParametersModel>>(path);
             return presets;
         }
 
