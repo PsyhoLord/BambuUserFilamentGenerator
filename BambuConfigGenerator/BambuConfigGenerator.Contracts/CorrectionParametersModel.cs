@@ -1,6 +1,6 @@
-﻿using BambuConfigGenerator.Core.Enums;
+﻿using BambuConfigGenerator.Contracts.Enums;
 
-namespace BambuConfigGenerator.Core.Models;
+namespace BambuConfigGenerator.Contracts;
 
 public class CorrectionParametersModel
 {
@@ -17,6 +17,10 @@ public class CorrectionParametersModel
     public int RecommendedTemperatureMin { get; set; }
 
     public int RecommendedTemperatureMax { get; set; }
+
+    public int NozzleTemperatureInitialLayer { get; set; }
+    
+    public int NozzleTemperatureOtherLayers { get; set; }
 
     public double FilamentFlowRatio { get; set; }
 

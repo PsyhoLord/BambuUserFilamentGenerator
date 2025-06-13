@@ -1,4 +1,5 @@
-﻿using BambuConfigGenerator.Core.Models;
+﻿using BambuConfigGenerator.Contracts;
+using BambuConfigGenerator.Core.Models;
 using BambuConfigGenerator.Core.Models.UIModels;
 using MvvmCross.ViewModels;
 
@@ -12,6 +13,8 @@ public interface IIOService
 
     public void SaveCorrections(CorrectionParametersModel correction);
     public CorrectionParametersModel? LoadCorrections();
+
+    public List<PresetParametersModel> LoadPresets();
 
     public Dictionary<string, string> GetFilamentConfigValuePairs(string path);
 

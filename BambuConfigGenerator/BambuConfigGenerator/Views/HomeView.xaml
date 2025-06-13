@@ -22,20 +22,83 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border
+        <ListView
+            Grid.Column="0"
+            Width="44"
+            Margin="0,40,0,0"
+            Padding="0"
+            HorizontalAlignment="Left"
+            BorderBrush="Transparent"
+            ItemsSource="{Binding MenuItems}"
+            SelectedIndex="{Binding SelectedMenuItemIndex}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <svgc:SvgViewbox 
+                            Margin="2,0,0,0"
+                            Width="28"
+                            Height="40"
+                            Source="{Binding IconSource}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid Grid.Column="0"
+              Width="205"
+              HorizontalAlignment="Left"
+              Background="{StaticResource BackgroundColorDarkBrush}"
+              Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView
+                Width="207"
+                Margin="0,40,0,0"
+                Padding="0"
+                HorizontalAlignment="Left"
+                BorderBrush="Transparent"
+                ItemsSource="{Binding MenuItems}"
+                SelectedIndex="{Binding SelectedMenuItemIndex}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <svgc:SvgViewbox 
+                                Margin="2,0,0,0"
+                                Width="28"
+                                Height="40"
+                                Source="{Binding IconSource}" />
+                            <Label
+                                Margin="0"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Content="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label
+                Grid.Row="1"
+                Content="{Binding AppVersion}"
+                FontSize="12"
+                HorizontalAlignment="Right"
+                Foreground="{StaticResource PrimaryBrush}" />
+        </Grid>
+
+        <Button
             Grid.Row="0"
             Grid.Column="0"
-            Background="#2E2E2E"
-            BorderBrush="#424242">
-            <Button
-                Width="40"
-                Height="40"
-                Margin="0"
-                VerticalAlignment="Top"
-                Command="{Binding OpenMenuCommand}">
-                <svgc:SvgViewbox Source="/Resources/hamburger-button-svgrepo-com.svg" />
-            </Button>
-        </Border>
+            Width="43"
+            Height="40"
+            Margin="0"
+            VerticalAlignment="Top"
+            BorderBrush="Transparent"
+            Command="{Binding OpenMenuCommand}">
+            <svgc:SvgViewbox Width="28" Source="/Resources/lunch_dining.svg" />
+        </Button>
+       
 
         <ContentControl
             Grid.Column="1"
@@ -66,48 +129,23 @@
             Visibility="{Binding MenuItems[2].IsVisible, Converter={StaticResource Visibility}}">
             <ContentControl.ContentTemplate>
                 <DataTemplate>
+                    <local:PresetGenerator />
+                </DataTemplate>
+            </ContentControl.ContentTemplate>
+        </ContentControl>
+
+        <ContentControl
+            Grid.Column="1"
+            Content="{Binding MenuItems[3].ViewModel}"
+            Visibility="{Binding MenuItems[3].IsVisible, Converter={StaticResource Visibility}}">
+            <ContentControl.ContentTemplate>
+                <DataTemplate>
                     <local:SettingsView />
                 </DataTemplate>
             </ContentControl.ContentTemplate>
         </ContentControl>
 
-        <Grid Grid.Column="1"
-              Width="200"
-              HorizontalAlignment="Left"
-              Background="{StaticResource BackgroundColorDarkBrush}"
-              Visibility="{Binding MenuVisible, Converter={StaticResource Visibility}}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ListView
-                Width="200"
-                Margin="0,0"
-                Padding="0,10"
-                HorizontalAlignment="Left"
-                BorderBrush="Transparent"
-                ItemsSource="{Binding MenuItems}"
-                SelectedIndex="{Binding SelectedMenuItemIndex}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Label
-                                Margin="0"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Center"
-                                Content="{Binding Name}" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
 
-            <Label
-                Grid.Row="1"
-                Content="{Binding AppVersion}"
-                FontSize="12"
-                HorizontalAlignment="Right"
-                Foreground="{StaticResource PrimaryBrush}" />
-        </Grid>
 
     </Grid>
 </views:MvxWpfView>

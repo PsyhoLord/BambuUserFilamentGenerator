@@ -88,6 +88,8 @@ public class FilamentEditorViewModel : MvxViewModel
 
     private void ReadFilamentConfig()
     {
+        if(SelectedFileIndex == -1)
+            return;
         var filamentConfig = _ioService.GetFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath);
         var filamentConfigUiModel = new MvxObservableCollection<FilamentFileParamUIModel>();
 
@@ -103,13 +105,22 @@ public class FilamentEditorViewModel : MvxViewModel
 
     private void SaveFilamentConfig()
     {
-        _ioService.SaveFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath, FilamentParamsCollection);
-        MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        try
+        {
+            _ioService.SaveFilamentConfigValuePairs(FileList[SelectedFileIndex].FullFilePath, FilamentParamsCollection);
+            MessageBox.Show("Success!!!", "WooHoo!!!", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception e)
+        {
+            MessageBox.Show(e.Message, "Error!!!", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(SelectedFolder);
+        if(string.IsNullOrEmpty(path))
+            return;
         SelectedFolder = path;
         OpenFolder();
     }

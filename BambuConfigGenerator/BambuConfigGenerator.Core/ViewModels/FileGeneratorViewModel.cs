@@ -1,5 +1,4 @@
-﻿using BambuConfigGenerator.Core.Models;
-using BambuConfigGenerator.Core.Models.UIModels;
+﻿using BambuConfigGenerator.Core.Models.UIModels;
 using BambuConfigGenerator.Core.Services.Interfaces;
 using BambuConfigGenerator.Core.Services.PlatformSpecific;
 using MvvmCross;
@@ -9,6 +8,8 @@ using MvvmCross.ViewModels;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
+using BambuConfigGenerator.Contracts;
+using Enums = BambuConfigGenerator.Contracts.Enums; // Assuming Enums is in the Contracts namespace
 
 namespace BambuConfigGenerator.Core.ViewModels;
 
@@ -30,6 +31,8 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<PrinterUIModel> _printers;
     private ObservableCollection<NozzleUIModel> _nozzles;
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
+    private int _nozzleTemperatureInitialLayer = 220;
+    private int _nozzleTemperatureOtherLayers = 220;
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
@@ -105,7 +108,9 @@ public class FileGeneratorViewModel : MvxViewModel
         FilamentFlowRatio = configuration.FilamentFlowRatio;
         FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
         SelectedFolder = configuration.SelectedOutputFolderPath;
-        
+        NozzleTemperatureInitialLayer = configuration.NozzleTemperatureInitialLayer;
+        NozzleTemperatureOtherLayers = configuration.NozzleTemperatureOtherLayers;
+
         _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
         if (!_templateFolderAnalyserService.IsValid)
         {
@@ -121,22 +126,19 @@ public class FileGeneratorViewModel : MvxViewModel
             }
         }
 
-        foreach (var configurationSelectedPrinter in configuration.SelectedPrinters)
-        {
-            var printer = Printers.FirstOrDefault(p => p.Printer == configuration.SelectedPrinters.FirstOrDefault());
-            if (printer != null) printer.IsSelected = true;
-        }
+        var printer = Printers.FirstOrDefault(p => p.Printer == configuration.SelectedPrinters.FirstOrDefault());
+        if (printer != null) printer.IsSelected = true;
 
-        foreach (var configurationSelectedNozzle in configuration.SelectedNozzles)
-        {
-            var nozzle = Nozzles.FirstOrDefault(n => n.Nozzle == configuration.SelectedNozzles.FirstOrDefault());
-            if (nozzle != null) nozzle.IsSelected = true;
-        }
+        var nozzle = Nozzles.FirstOrDefault(n => n.Nozzle == configuration.SelectedNozzles.FirstOrDefault());
+        if (nozzle != null) nozzle.IsSelected = true;
     }
 
     private async Task SelectFolderWithTemplatesPath()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
+        if (string.IsNullOrEmpty(path))
+            return;
+
         FolderWithTemplatesPath = path;
 
         _templateFolderAnalyserService.SetFolderPath(FolderWithTemplatesPath);
@@ -153,6 +155,8 @@ public class FileGeneratorViewModel : MvxViewModel
     private async Task SelectOutputFolder()
     {
         var path = await _fileFolderPickerService.SelectFolder(string.Empty);
+        if(string.IsNullOrEmpty(path))
+            return;
         SelectedFolder = path;
     }
 
@@ -171,7 +175,9 @@ public class FileGeneratorViewModel : MvxViewModel
             SelectedNozzles = Nozzles.Where(n => n.IsSelected).Select(n => n.Nozzle).ToList(),
             SelectedPrinters = Printers.Where(p => p.IsSelected).Select(p => p.Printer).ToList(),
             FolderWithTemplatesPath = FolderWithTemplatesPath,
-            SelectedOutputFolderPath = SelectedFolder
+            SelectedOutputFolderPath = SelectedFolder,
+            NozzleTemperatureInitialLayer = NozzleTemperatureInitialLayer,
+            NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers
         };
 
         filament.SetParametersForCorrections(corrections);
@@ -213,6 +219,18 @@ public class FileGeneratorViewModel : MvxViewModel
     {
         get => _recommendedTemperatureMax;
         set => SetProperty(ref _recommendedTemperatureMax, value);
+    }
+
+    public int NozzleTemperatureInitialLayer
+    {
+        get => _nozzleTemperatureInitialLayer;
+        set => SetProperty(ref _nozzleTemperatureInitialLayer, value);
+    }
+
+    public int NozzleTemperatureOtherLayers
+    {
+        get => _nozzleTemperatureOtherLayers;
+        set => SetProperty(ref _nozzleTemperatureOtherLayers, value);
     }
 
     public double FilamentFlowRatio

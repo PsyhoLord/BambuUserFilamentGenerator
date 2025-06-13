@@ -9,9 +9,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\app_registration_24dp.svg" />
+    <None Remove="Resources\border_color_24dp.svg" />
     <None Remove="Resources\delete_24dp.svg" />
     <None Remove="Resources\folder_24dp.svg" />
+    <None Remove="Resources\format_paint_24dp.svg" />
+    <None Remove="Resources\lunch_dining.svg" />
     <None Remove="Resources\refresh.svg" />
+    <None Remove="Resources\settings_24dp.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Colors.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +38,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\app_registration_24dp.svg" />
+    <Resource Include="Resources\border_color_24dp.svg" />
+    <Resource Include="Resources\Colors.xaml" />
     <Resource Include="Resources\delete_24dp.svg" />
     <Resource Include="Resources\folder_24dp.svg" />
+    <Resource Include="Resources\format_paint_24dp.svg" />
     <Resource Include="Resources\hamburger-button-svgrepo-com.svg" />
+    <Resource Include="Resources\lunch_dining.svg" />
     <Resource Include="Resources\refresh.svg" />
+    <Resource Include="Resources\settings_24dp.svg" />
   </ItemGroup>
 
 </Project>

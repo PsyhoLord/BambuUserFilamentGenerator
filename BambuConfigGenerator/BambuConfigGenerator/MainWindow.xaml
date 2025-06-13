@@ -7,7 +7,7 @@
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     Title="MainWindow"
     Background="#242424"
-    Width="1000"
-    Height="750"
+    Width="1200"
+    Height="950"
     mc:Ignorable="d">
 </views:MvxWindow>

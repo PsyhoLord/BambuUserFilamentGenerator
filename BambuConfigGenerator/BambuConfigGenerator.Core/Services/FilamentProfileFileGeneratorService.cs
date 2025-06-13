@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.IO;
-using BambuConfigGenerator.Core.Enums;
-using BambuConfigGenerator.Core.Models;
+using BambuConfigGenerator.Contracts;
+using BambuConfigGenerator.Contracts.Enums;
 using BambuConfigGenerator.Core.Services.Interfaces;
 
 namespace BambuConfigGenerator.Core.Services
@@ -90,6 +90,9 @@ namespace BambuConfigGenerator.Core.Services
                     // Apply corrections:
                     template.NozzleTemperatureRangeLow = [$"{Corrections.RecommendedTemperatureMin:D}"];
                     template.NozzleTemperatureRangeHigh = [$"{Corrections.RecommendedTemperatureMax:D}"];
+                    template.NozzleTemperatureInitialLayer = [$"{Corrections.NozzleTemperatureInitialLayer:D}"];
+                    template.NozzleTemperature = [$"{Corrections.NozzleTemperatureOtherLayers:D}"];
+
                     template.FilamentFlowRatio = [Corrections.FilamentFlowRatio.ToString("F2", CultureInfo.InvariantCulture)];
 
                     // Serialize the template with custom options

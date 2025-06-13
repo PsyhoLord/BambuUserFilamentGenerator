@@ -18,6 +18,7 @@ public class SettingsViewModel : MvxViewModel
     private string _folderToBambuLabUsers;
     private string _folderToBambuLabUserFilaments;
 
+    private UserSettingsModel userSettings;
     public SettingsViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
         IMvxNavigationService navigationService, IUserSettingsService userSettingsService)
@@ -46,22 +47,31 @@ public class SettingsViewModel : MvxViewModel
 
     private async Task SelectFolderToBambuLabUserFilaments()
     {
-        FolderToBambuLabUserFilaments = await SelectFolder(FolderToBambuLabUsers);
+        var path = await SelectFolder(FolderToBambuLabUsers);
+        if(string.IsNullOrEmpty(path))
+            return;
+        FolderToBambuLabUserFilaments = path;
     }
 
     private async Task SelectFolderToBambuLabUsers()
     {
-        FolderToBambuLabUsers = await SelectFolder(FolderToBambuLabUsers);
+        var path = await SelectFolder(FolderToBambuLabUsers);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabUsers = path;
     }
 
     private async Task SelectFolderToBambuLabUserApp()
     {
-        FolderToBambuLabApp = await SelectFolder(FolderToBambuLabUserApp);
+        var path = await SelectFolder(FolderToBambuLabUserApp);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabApp = path;
     }
 
     private async Task SelectFolderToBambuLabApp()
     {
-        FolderToBambuLabApp = await SelectFolder(FolderToBambuLabApp);
+        var path = await SelectFolder(FolderToBambuLabApp);
+        if(string.IsNullOrEmpty(path)) return;
+        FolderToBambuLabApp = path;
     }
 
     private async Task<string> SelectFolder(string initialPath)
@@ -71,7 +81,7 @@ public class SettingsViewModel : MvxViewModel
 
     private void SaveUserSettings()
     {
-        var userSettings = new UserSettingsModel
+        userSettings = new UserSettingsModel
         {
             UserId = UserId,
             FolderToBambuLabApp = FolderToBambuLabApp,
@@ -85,7 +95,7 @@ public class SettingsViewModel : MvxViewModel
 
     private void Init()
     {
-        var userSettings = _userSettingsService.UserSettings;
+        userSettings = _userSettingsService.UserSettings;
 
         UserId = userSettings.UserId;
         FolderToBambuLabApp = userSettings.FolderToBambuLabApp;
@@ -93,7 +103,7 @@ public class SettingsViewModel : MvxViewModel
         FolderToBambuLabUsers = userSettings.FolderToBambuLabUsers;
         FolderToBambuLabUserFilaments = userSettings.FolderToBambuLabUserFilaments;
     }
-
+    
     public string UserId
     {
         get => _userId;
@@ -123,8 +133,6 @@ public class SettingsViewModel : MvxViewModel
         get => _folderToBambuLabUserFilaments;
         set => SetProperty(ref _folderToBambuLabUserFilaments, value);
     }
-
-
 
     public IMvxCommand SaveCommand { get; }
 

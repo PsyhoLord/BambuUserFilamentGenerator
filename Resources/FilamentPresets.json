@@ -1,0 +1,156 @@
+[
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Base",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.96,
+    "K": 0.04
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Biage",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.956,
+    "K": 0.05
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Black",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 1.02,
+    "K": 0.036
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Coyote",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.963,
+    "K": 0.046
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Green",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 1.0,
+    "K": 0.046
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Grey",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.96,
+    "K": 0.039
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Khaki",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.982,
+    "K": 0.045
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Metalic Grey",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.958,
+    "K": 0.037
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Red",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 1.042,
+    "K": 0.047
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "White",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.957,
+    "K": 0.038
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PETG",
+    "Serial": "Base",
+    "RecommendedTempMin": 230.0,
+    "RecommendedTempMax": 240.0,
+    "NozzleInitialLayerTemp": 255.0,
+    "NozzleLayersTemp": 255.0,
+    "FFR": 0.983,
+    "K": 0.041
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PETG",
+    "Serial": "NEO Base",
+    "RecommendedTempMin": 220.0,
+    "RecommendedTempMax": 230.0,
+    "NozzleInitialLayerTemp": 255.0,
+    "NozzleLayersTemp": 255.0,
+    "FFR": 0.953,
+    "K": 0.037
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PETG",
+    "Serial": "Metallic Grey",
+    "RecommendedTempMin": 230.0,
+    "RecommendedTempMax": 240.0,
+    "NozzleInitialLayerTemp": 255.0,
+    "NozzleLayersTemp": 255.0,
+    "FFR": 0.983,
+    "K": 0.041
+  },
+  {
+    "Brand": "3DPlast",
+    "Type": "PETG",
+    "Serial": "NEO Graphite",
+    "RecommendedTempMin": 220.0,
+    "RecommendedTempMax": 230.0,
+    "NozzleInitialLayerTemp": 255.0,
+    "NozzleLayersTemp": 255.0,
+    "FFR": 0.953,
+    "K": 0.037
+  }
+]
