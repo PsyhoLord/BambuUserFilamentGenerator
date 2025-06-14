@@ -111,6 +111,17 @@
   },
   {
     "Brand": "3DPlast",
+    "Type": "PLA",
+    "Serial": "Yellow",
+    "RecommendedTempMin": 190.0,
+    "RecommendedTempMax": 220.0,
+    "NozzleInitialLayerTemp": 220.0,
+    "NozzleLayersTemp": 220.0,
+    "FFR": 0.963,
+    "K": 0.032
+  },
+  {
+    "Brand": "3DPlast",
     "Type": "PETG",
     "Serial": "Base",
     "RecommendedTempMin": 230.0,

@@ -239,7 +239,7 @@
             <Label
                 Grid.Row="0"
                 Grid.Column="0"
-                Content="Template Path:" />
+                Content="Preset Path:" />
             <TextBox
                 Grid.Row="0"
                 Grid.Column="1"

@@ -8,7 +8,7 @@ namespace BambuConfigGenerator.ExcelToJsonGenerator;
 
 public class MsOfficeService // : IDisposable
 {
-    private string _filamentPresetFilePath = "Copy of FilamentPresets.xlsx";
+    private string _filamentPresetFilePath = "FilamentPresets.xlsx";
     private string _filamentOutputFilePath = "FilamentPresets.json";
 
     public CorrectionParametersModel ReadDataFromExcel()

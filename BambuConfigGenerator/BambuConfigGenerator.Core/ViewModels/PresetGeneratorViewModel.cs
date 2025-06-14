@@ -50,7 +50,7 @@ public class PresetGeneratorViewModel : MvxViewModel
         SelectFolderCommand = new MvxAsyncCommand(SelectOutputFolder);
         SelectFolderWithPresets = new MvxAsyncCommand(async () =>
         {
-            var path = await _fileFolderPickerService.SelectFile(string.Empty);
+            var path = await _fileFolderPickerService.SelectFile(string.Empty, "User Presets (*.json)|*.json");
             if (string.IsNullOrEmpty(path))
                 return;
             FolderWithPresetsPath = path;
@@ -58,16 +58,6 @@ public class PresetGeneratorViewModel : MvxViewModel
         OpenFolderWithTemplatesCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderWithTemplatesPath));
         OpenFolderOutputCommand = new MvxCommand(() => Process.Start("explorer.exe", OutputFolder));
         OpenFolderWithPresetsCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderWithPresetsPath));
-
-        var configuration = _ioService.LoadCorrections();
-
-        if (configuration != null)
-            ApplyConfiguration(configuration);
-        else
-        {
-            var userConfig = _userSettingsService.UserSettings;
-            // SelectedFolder = userConfig.FolderToBambuLabUserFilaments;
-        }
 
         Printers =
         [
@@ -87,6 +77,8 @@ public class PresetGeneratorViewModel : MvxViewModel
             new NozzleUIModel { Name = "0.6", Nozzle = Enums.Nozzles.Zero6 },
             new NozzleUIModel { Name = "0.8", Nozzle = Enums.Nozzles.Zero8 }
         ];
+
+        ApplyConfiguration();
     }
 
     private async Task SelectFolderWithTemplatesPath()
@@ -116,10 +108,17 @@ public class PresetGeneratorViewModel : MvxViewModel
         OutputFolder = path;
     }
 
-    private void ApplyConfiguration(CorrectionParametersModel configuration)
+    private void ApplyConfiguration()
     {
-        FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
-        OutputFolder = configuration.SelectedOutputFolderPath;
+        var userConfig = _userSettingsService.UserSettings;
+        FolderWithPresetsPath = userConfig.UserPresetFilePath;
+
+        var configuration = _ioService.LoadCorrections();
+
+        if (configuration != null)
+            FolderWithTemplatesPath = configuration.FolderWithTemplatesPath;
+
+        OutputFolder = userConfig.FolderToBambuLabUserFilaments;
     }
 
     private void GenerateAllPresets()
@@ -170,8 +169,8 @@ public class PresetGeneratorViewModel : MvxViewModel
                     SelectedNozzles = nozzles,
                     SelectedPrinters = printers,
                     FolderWithTemplatesPath = FolderWithTemplatesPath,
-                    SelectedOutputFolderPath = OutputFolder
-
+                    SelectedOutputFolderPath = OutputFolder,
+                    K = presetUiModel.K
                 };
 
                 filamentGeneratorService.SetParametersForCorrections(corrections);
@@ -194,6 +193,12 @@ public class PresetGeneratorViewModel : MvxViewModel
     {
         var allPresetsModelsList = _ioService.LoadPresets(FolderWithPresetsPath);
 
+        if (allPresetsModelsList == null)
+        {
+            MessageBox.Show("No presets loaded!", "ERROR!", MessageBoxButton.OK);
+            return;
+        }
+
         _allPresetsList = allPresetsModelsList.Select(p => new PresetUIModel
         {
             Type = p.Type,
@@ -206,6 +211,9 @@ public class PresetGeneratorViewModel : MvxViewModel
             Ffr = p.Ffr,
             K = p.K
         }).ToList();
+
+        _userSettingsService.UserSettings.UserPresetFilePath = FolderWithPresetsPath;
+        _userSettingsService.UpdateUserConfig(_userSettingsService.UserSettings);
 
         BrandList = new ObservableCollection<string>(_allPresetsList.Select(p => p.Brand).Distinct());
         var filaments = _allPresetsList.Select(p => p.Type).Distinct()

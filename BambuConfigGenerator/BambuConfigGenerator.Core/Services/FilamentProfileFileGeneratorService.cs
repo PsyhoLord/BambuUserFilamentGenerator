@@ -94,6 +94,7 @@ namespace BambuConfigGenerator.Core.Services
                     template.NozzleTemperature = [$"{Corrections.NozzleTemperatureOtherLayers:D}"];
 
                     template.FilamentFlowRatio = [Corrections.FilamentFlowRatio.ToString("F2", CultureInfo.InvariantCulture)];
+                    template.PressureAdvance = [Corrections.K.ToString("F3", CultureInfo.InvariantCulture)];
 
                     // Serialize the template with custom options
 

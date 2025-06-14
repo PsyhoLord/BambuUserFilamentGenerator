@@ -33,6 +33,7 @@ public class FileGeneratorViewModel : MvxViewModel
     private ObservableCollection<FilamentTypeUIModel> _filamentTypes = new();
     private int _nozzleTemperatureInitialLayer = 220;
     private int _nozzleTemperatureOtherLayers = 220;
+    private double _k;
 
     public FileGeneratorViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
@@ -179,7 +180,8 @@ public class FileGeneratorViewModel : MvxViewModel
                 FolderWithTemplatesPath = FolderWithTemplatesPath,
                 SelectedOutputFolderPath = SelectedFolder,
                 NozzleTemperatureInitialLayer = NozzleTemperatureInitialLayer,
-                NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers
+                NozzleTemperatureOtherLayers = NozzleTemperatureOtherLayers,
+                K = K
             };
 
             filament.SetParametersForCorrections(corrections);
@@ -244,6 +246,12 @@ public class FileGeneratorViewModel : MvxViewModel
     {
         get => _filamentFlowRatio;
         set => SetProperty(ref _filamentFlowRatio, value);
+    }
+
+    public double K
+    {
+        get => _k;
+        set => SetProperty(ref _k, value);
     }
 
     public string FolderWithTemplatesPath

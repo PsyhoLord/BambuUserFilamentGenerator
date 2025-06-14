@@ -19,6 +19,8 @@ public class SettingsViewModel : MvxViewModel
     private string _folderToBambuLabUserFilaments;
 
     private UserSettingsModel userSettings;
+    private string _userPresetsFilePath;
+
     public SettingsViewModel(IFileFolderPickerService fileFolderPickerService,
         IIOService ioService, ITemplateFolderAnalyserService templateFolderAnalyserService,
         IMvxNavigationService navigationService, IUserSettingsService userSettingsService)
@@ -42,6 +44,17 @@ public class SettingsViewModel : MvxViewModel
         SelectFolderToBambuLabUserFilamentsCommand = new MvxAsyncCommand(SelectFolderToBambuLabUserFilaments);
         OpenFolderToBambuLabUserFilamentsCommand = new MvxCommand(() => Process.Start("explorer.exe", FolderToBambuLabUserFilaments));
         ClearFolderToBambuLabUserFilamentsCommand = new MvxCommand(() => FolderToBambuLabUserFilaments = string.Empty);
+
+        SelectFilePathToUserPresetsCommand = new MvxAsyncCommand(async () =>
+        {
+            var path = await _fileFolderPickerService.SelectFile(UserPresetFilePath, "User Presets (*.json)|*.json");
+            if (!string.IsNullOrEmpty(path))
+            {
+                UserPresetFilePath = path;
+            }
+        });
+        OpenFolderToUserPresetsCommand = new MvxCommand(() => Process.Start("explorer.exe", System.IO.Path.GetDirectoryName(UserPresetFilePath)));
+        ClearUserPresetsPathCommand = new MvxCommand(() => UserPresetFilePath = string.Empty);
         Init();
     }
 
@@ -87,7 +100,8 @@ public class SettingsViewModel : MvxViewModel
             FolderToBambuLabApp = FolderToBambuLabApp,
             FolderToBambuLabUserApp = FolderToBambuLabUserApp,
             FolderToBambuLabUsers = FolderToBambuLabUsers,
-            FolderToBambuLabUserFilaments = FolderToBambuLabUserFilaments
+            FolderToBambuLabUserFilaments = FolderToBambuLabUserFilaments,
+            UserPresetFilePath = UserPresetFilePath
         };
 
         _userSettingsService.UpdateUserConfig(userSettings);
@@ -102,6 +116,7 @@ public class SettingsViewModel : MvxViewModel
         FolderToBambuLabUserApp = userSettings.FolderToBambuLabUserApp;
         FolderToBambuLabUsers = userSettings.FolderToBambuLabUsers;
         FolderToBambuLabUserFilaments = userSettings.FolderToBambuLabUserFilaments;
+        UserPresetFilePath = userSettings.UserPresetFilePath;
     }
     
     public string UserId
@@ -134,6 +149,12 @@ public class SettingsViewModel : MvxViewModel
         set => SetProperty(ref _folderToBambuLabUserFilaments, value);
     }
 
+    public string UserPresetFilePath
+    {
+        get => _userPresetsFilePath;
+        set => SetProperty(ref _userPresetsFilePath, value);
+    }
+
     public IMvxCommand SaveCommand { get; }
 
     public IMvxAsyncCommand SelectFolderToBambuLabAppCommand { get; }
@@ -151,4 +172,10 @@ public class SettingsViewModel : MvxViewModel
     public IMvxAsyncCommand SelectFolderToBambuLabUserFilamentsCommand { get; }
     public IMvxCommand OpenFolderToBambuLabUserFilamentsCommand { get; }
     public IMvxCommand ClearFolderToBambuLabUserFilamentsCommand { get; }
+
+    public IMvxAsyncCommand SelectFilePathToUserPresetsCommand { get; }
+    public IMvxCommand OpenFolderToUserPresetsCommand { get; }
+    public IMvxCommand ClearUserPresetsPathCommand { get; }
+
+
 }

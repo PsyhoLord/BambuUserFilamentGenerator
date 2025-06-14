@@ -27,4 +27,6 @@ public class CorrectionParametersModel
     public string FolderWithTemplatesPath { get; set; } 
 
     public string SelectedOutputFolderPath { get; set; }
+
+    public double K { get; set; }
 }

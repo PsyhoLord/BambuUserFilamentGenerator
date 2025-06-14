@@ -8,9 +8,9 @@
     xmlns:views="clr-namespace:MvvmCross.Platforms.Wpf.Views;assembly=MvvmCross.Platforms.Wpf"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     Width="800"
-    Height="750"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    Height="850"
+    d:DesignHeight="550"
+    d:DesignWidth="850"
     d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
     x:TypeArguments="viewModels:SettingsViewModel"
     mc:Ignorable="d">
@@ -239,6 +239,56 @@
                     Margin="5,0"
                     VerticalAlignment="Top"
                     Command="{Binding ClearFolderToBambuLabUserFilamentsCommand}">
+                    <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
+                </Button>
+            </Grid>
+
+            <!-- Path to presets json -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="Path to presets json"
+                    FontSize="16" />
+                <TextBox
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20,0, 10, 0"
+                    Text="{Binding UserPresetFilePath}" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="140"
+                    Margin="5,0"
+                    Command="{Binding SelectFilePathToUserPresetsCommand}"
+                    Content="Select folder" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding OpenFolderToUserPresetsCommand}">
+                    <svgc:SvgViewbox Source="/Resources/folder_24dp.svg" />
+                </Button>
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0"
+                    VerticalAlignment="Top"
+                    Command="{Binding ClearUserPresetsPathCommand}">
                     <svgc:SvgViewbox Source="/Resources/delete_24dp.svg" />
                 </Button>
             </Grid>

@@ -6,12 +6,12 @@ namespace BambuConfigGenerator.Services;
 
 public class FileFolderPickerService : IFileFolderPickerService
 {
-    public async Task<string> SelectFile(string initialPath)
+    public async Task<string> SelectFile(string initialPath, string filter)
     {
         var openFileDialog = new OpenFileDialog
         {
             InitialDirectory = initialPath,
-            Filter = "JSON files (*.json)|*.json|All files (*.*)|*.*"
+            Filter = filter //"JSON files (*.json)|*.json|All files (*.*)|*.*"
         };
 
         if (openFileDialog.ShowDialog() == true)

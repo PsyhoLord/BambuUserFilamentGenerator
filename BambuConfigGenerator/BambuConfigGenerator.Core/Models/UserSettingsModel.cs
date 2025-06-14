@@ -1,4 +1,4 @@
-﻿namespace BambuConfigGenerator.Core.Models;
+namespace BambuConfigGenerator.Core.Models;
 
 public class UserSettingsModel
 {
@@ -7,4 +7,5 @@ public class UserSettingsModel
     public string FolderToBambuLabUserApp { get; set; }
     public string FolderToBambuLabUsers { get; set; }
     public string FolderToBambuLabUserFilaments { get; set; }
+    public string UserPresetFilePath { get; set; }
 }
